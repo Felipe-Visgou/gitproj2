@@ -1,5 +1,5 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: PF Peças Capturadas
+*  $MCI Módulo de implementação: PF Peças Finalizadas
 *
 *  Arquivo gerado:              PF.c
 *  Letras identificadoras:      PF
@@ -30,7 +30,7 @@
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: PF Descritor da PF
+*  $TC Tipo de dados: PF Descritor da estrutura de peças finalizadas
 *
 *
 ***********************************************************************/
@@ -144,4 +144,4 @@ PF_tpCondRet PF_ObterCorBar(PF_tppFinalizadas pPF, char *cor)
 	return PF_CondRetOK;
 }
 
-/******** Fim do Módulo de Implementação: PF Lista de Peças Capturadas *************/
+/******** Fim do Módulo de Implementação: PF Lista de Peças Finalizadas *************/

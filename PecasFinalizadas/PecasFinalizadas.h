@@ -163,7 +163,7 @@ typedef struct PF_tagFinalizadas * PF_tppFinalizadas;
 
 #undef PF_EXT
 
-/********** Fim do módulo de definição: PF  Lista de Peças Capturadas **********/
+/********** Fim do módulo de definição: PF  Lista de Peças Finalizadas **********/
 
 #else
 #endif

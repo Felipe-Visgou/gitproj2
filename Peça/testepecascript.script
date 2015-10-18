@@ -1,0 +1,20 @@
+// TESTE DO MODULO PECA
+// TESTE COMPLETO
+
+== Testar criar 2 pecas
+=criarpeca 0 'p' 0
+=criarpeca 1 'b' 0
+
+== Testar obter a cor da peca 0 (preta)
+=obtercorpeca 0 'p' 0
+
+== Testar obter a cor da peca 1 errada (branca)
+=obtercorpeca 1 'p' 0
+=recuperar
+
+== Testar obter a cor da peca 1 (branca)
+=obtercorpeca 1 'b' 0
+
+== Destruir as duas pecas
+=destruirpeca 1 0
+=destruirpeca 0 0

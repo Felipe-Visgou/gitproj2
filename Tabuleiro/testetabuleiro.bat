@@ -1,0 +1,1 @@
+TRAB2-1 /stestetabuleiroscript > logsaidatabuleiro.txt

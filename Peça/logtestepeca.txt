@@ -1,0 +1,30 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: TRAB2-2
+
+      Arquivo de teste:    testepecascript
+
+
+!!!    0  Linha:     1  // TESTE DO MODULO PECA 
+!!!    0  Linha:     2  // TESTE COMPLETO 
+    4  == Testar criar 2 pecas
+    8  == Testar obter a cor da peca 0 (preta)
+   11  == Testar obter a cor da peca 1 errada (branca)
+>>>    1  Linha:    12  Valor do elemento errado, diferente do esperado Deveria ser: 'b'  É: 'p'
+<<<    0  Linha:    13  Falha esperada foi recuperada. 
+   15  == Testar obter a cor da peca 1 (branca)
+   18  == Destruir as duas pecas
+
+!!! Número de linhas lidas:          20
+!!! Número de casos de teste:         5
+!!! Número comandos corretos:         6
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

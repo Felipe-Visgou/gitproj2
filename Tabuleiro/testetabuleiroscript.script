@@ -1,0 +1,43 @@
+//Teste do Módulo Tabuleiro
+
+== Criar tabuleiro
+=criartabuleiro 0
+
+== Mover Peca da casa 1 para casa 2
+=moverpeca 0 1 0
+
+== Mover Peca da casa 10 (vazia) para qualquer casa (errado)
+=moverpeca 10 23 1
+
+== Mover Peca da casa 23 para a 0
+=moverpeca 23 0 0
+
+== Mover uma peça por todas as casas do tabuleiro de 0 a 23
+
+=moverpeca 0 1 0
+=moverpeca 1 2 0
+=moverpeca 2 3 0
+=moverpeca 3 4 0
+=moverpeca 4 5 0
+=moverpeca 5 6 0
+=moverpeca 6 7 0
+=moverpeca 7 8 0
+=moverpeca 8 9 0
+=moverpeca 9 10 0
+=moverpeca 10 11 0
+=moverpeca 11 12 0
+=moverpeca 12 13 0
+=moverpeca 13 14 0
+=moverpeca 14 15 0
+=moverpeca 15 16 0
+=moverpeca 16 17 0
+=moverpeca 17 18 0
+=moverpeca 18 19 0
+=moverpeca 19 20 0
+=moverpeca 20 21 0
+=moverpeca 21 22 0
+=moverpeca 22 23 0
+
+
+== Destruir Tabuleiro
+=destruirtabuleiro 0

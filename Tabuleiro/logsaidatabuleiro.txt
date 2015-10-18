@@ -1,0 +1,29 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: TRAB2-1
+
+      Arquivo de teste:    testetabuleiroscript
+
+
+!!!    0  Linha:     1  //Teste do Módulo Tabuleiro 
+    3  == Criar tabuleiro
+    6  == Mover Peca da casa 1 para casa 2
+    9  == Mover Peca da casa 10 (vazia) para qualquer casa (errado)casa de origem esta vazia 
+
+   12  == Mover Peca da casa 23 para a 0
+   15  == Mover uma peça por todas as casas do tabuleiro de 0 a 23
+   42  == Destruir Tabuleiro
+
+!!! Número de linhas lidas:          43
+!!! Número de casos de teste:         6
+!!! Número comandos corretos:        28
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

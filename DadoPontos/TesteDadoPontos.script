@@ -1,0 +1,51 @@
+// SCRIPT DE TESTE PARA O MODULO DADOSPnt
+
+== Criar DadoPontos
+
+=criardadopontos 0
+
+== Obter Dono
+=obterdono 's' 0
+
+== Obter Valor
+=obtervalorpartida 2 0
+
+== Dobrar Dado
+=dobrardado 'b' 0
+
+== Obter Dono
+=obterdono 'b' 0
+
+== Obter Valor
+=obtervalorpartida 4 0
+
+== Dobrar Dado
+=dobrardado 'p' 0
+
+== Dobrar Dado
+=dobrardado 'b' 0
+
+== Dobrar Dado
+=dobrardado 'p' 0
+
+== Obter Valor
+=obtervalorpartida 32 0
+
+== Dobrar Dado Errado (Nao eh dono do dado)
+=dobrardado 'p' 1
+
+== Dobrar Dado
+=dobrardado 'b' 0
+
+== Obter Dono
+=obterdono 'b' 0
+
+== Obter Valor Errado
+=obtervalorpartida 63 0
+=recuperar
+
+== Obter Valor
+=obtervalorpartida 64 0
+
+== Destruir DadoPontos
+=destruirdadoponto 0

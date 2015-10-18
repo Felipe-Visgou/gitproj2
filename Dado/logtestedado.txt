@@ -1,0 +1,44 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: TRAB2-4
+
+      Arquivo de teste:    testedadoscript
+
+
+!!!    0  Linha:     1  // SCRIPT DE TESTE PARA O MODULO DADO 
+!!!    0  Linha:     2  // TESTE COMPLETO 
+    4  == Jogar o dado 10 vezes 
+ dado: 2
+ 
+ dado: 1
+ 
+ dado: 2
+ 
+ dado: 2
+ 
+ dado: 4
+ 
+ dado: 1
+ 
+ dado: 4
+ 
+ dado: 3
+ 
+ dado: 6
+ 
+ dado: 4
+
+
+!!! Número de linhas lidas:          14
+!!! Número de casos de teste:         1
+!!! Número comandos corretos:        10
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

@@ -1,0 +1,40 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: TRAB2-3
+
+      Arquivo de teste:    TesteDadoPontos
+
+
+!!!    0  Linha:     1  // SCRIPT DE TESTE PARA O MODULO DADOSPnt 
+    3  == Criar DadoPontos
+    7  == Obter Dono
+   10  == Obter Valor
+   13  == Dobrar Dado
+   16  == Obter Dono
+   19  == Obter Valor
+   22  == Dobrar Dado
+   25  == Dobrar Dado
+   28  == Dobrar Dado
+   31  == Obter Valor
+   34  == Dobrar Dado Errado (Nao eh dono do dado)
+   37  == Dobrar Dado
+   40  == Obter Dono
+   43  == Obter Valor Errado
+>>>    1  Linha:    44   Valor da Partida Errado Deveria ser: 63  É: 64
+<<<    0  Linha:    45  Falha esperada foi recuperada. 
+   47  == Obter Valor
+   50  == Destruir DadoPontos
+
+!!! Número de linhas lidas:          51
+!!! Número de casos de teste:        16
+!!! Número comandos corretos:        15
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

@@ -106,24 +106,6 @@ typedef struct PF_tagFinalizadas * PF_tppFinalizadas;
 
 /***********************************************************************
 *
-*  $FC Função: PF Remover uma peça ao PF
-*
-*  $ED Descrição da função
-*		Remover uma peça da lista de peças finalizadas
-*
-*  $EP Parâmetros
-*	  pPf			- A estrutura que será removida a peça
-
-*  $FV Valor retornado
-*		PF_CondRetOk
-*		PF_CondRetErro
-*
-***********************************************************************/
-
-   PF_tpCondRet PF_RemoverPeca(PF_tppFinalizadas pPF) ;
-
-/***********************************************************************
-*
 *  $FC Função: PF Obter tamanho da lista de peças finalizadas
 *
 *  $ED Descrição da função

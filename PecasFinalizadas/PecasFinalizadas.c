@@ -95,21 +95,6 @@ PF_tpCondRet PF_AdicionarPeca(PF_tppFinalizadas pPF)
 	return PF_CondRetOK;
 }
 
-/***************************************************************************
-*
-*  Função: TAB  &RemoverPeça
-*  ****/
-
-PF_tpCondRet PF_RemoverPeca(PF_tppFinalizadas pPF)
-{
-	if(LIS_ExcluirElemento(pPF->ListaFinalizadas) != LIS_CondRetOK)
-	{
-		printf("Erro ao excluir peca da lista (PF) \n");
-		return PF_CondRetErro;
-	}
-
-	return PF_CondRetOK;
-}
 
 /***************************************************************************
 *

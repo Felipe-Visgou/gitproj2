@@ -143,5 +143,15 @@ BAR_tpCondRet BAR_ObterCorBar(BAR_tppCapturadas pBAR, char *cor)
 	return BAR_CondRetOK;
 }
 
+BAR_tpCondRet BAR_ObterListaBAR(BAR_tppCapturadas pBar, LIS_tppLista *pLista)
+{
+	*pLista = pBar->ListaCapturadas;
+	if(pLista == NULL || *pLista == NULL)
+	{
+		printf("Ponterio para casas eh nulo (obterCasas) \n");
+		return BAR_CondRetErro;
+	}
+	return BAR_CondRetOK;
+}
 /******** Fim do Módulo de Implementação: BAR Lista de Peças Capturadas *************/
 

@@ -61,8 +61,9 @@ void  displayJogo(LIS_tppLista estrutura)
 	tppDadoPontos dp;
 	char preto = 'p', branco = 'b', corpeca;
 	int tampfb, tampfp; // tamanho da estrutura de pecas finalizadas, elas que determinam o termino do jogo
-	LIS_tppLista casas;
+	LIS_tppLista casas, listaAux;
 	tppPeca peca;
+	int flag[12] = {1,1,1,1,1,1,1,1,1,1,1,1};
 
 	// obter o valor de cada estrutura
 	IrInicioLista(estrutura);
@@ -116,12 +117,26 @@ void  displayJogo(LIS_tppLista estrutura)
 				printf("Erro ao obter as casas (display) \n");
 				exit(-1);
 			}
-			peca = (tppPeca)LIS_ObterValor(casas); // errado
+			listaAux = (LIS_tppLista)LIS_ObterValor(casas);
+			peca = (tppPeca)LIS_ObterValor(listaAux);
 			Pec_ObterCor(peca, &corpeca);
-			if(corpeca == preto)
+			if(!flag[i])
+				valor = ' ';
+			else if(LIS_AvancarElementoCorrente(listaAux, 1) == LIS_CondRetFimLista)
+			{
+				printf(" %c    ", (corpeca == preto)? 178 : 176);
+				flag[i] = 0;
+			}
+			else if(corpeca == preto)
 				valor = 178;
-			else
+			else if(corpeca == branco)
 				valor = 176;
-			printf("%c    ", valor);
-			LIS_AvancarElementoCorrente( // casa de casas é o tabulerio tem q mudar esta porra
+			printf(" %c    ", valor);
+			LIS_AvancarElementoCorrente(casas, 1);
+		}
+		printf("| \n|");
+		IrInicioLista(casas);
+	}
+	// a outra parte do tabuleiro (+12 iterações)... 
+
 			

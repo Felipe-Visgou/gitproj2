@@ -161,6 +161,10 @@ typedef struct BAR_tagCapturadas * BAR_tppCapturadas ;
 
    BAR_tpCondRet BAR_ObterCorBar(BAR_tppCapturadas pBAR, char *cor) ;
 
+ /********************************************************************/
+
+   BAR_tpCondRet BAR_ObterListaBAR(BAR_tppCapturadas pBar, LIS_tppLista *pLista);
+
 #undef BAR_EXT
 
 /********** Fim do módulo de definição: BAR  Lista de Peças Capturadas **********/

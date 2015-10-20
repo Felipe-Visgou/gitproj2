@@ -204,7 +204,7 @@ TAB_tpCondRet TAB_ObterCasas(TAB_tppTabuleiro pTab, LIS_tppLista *casas)
 		printf("Ponterio para casas eh nulo (obterCasas) \n");
 		return TAB_CondRetErro;
 	}
-	return TAB_CondRetOK;S
+	return TAB_CondRetOK;
 }
 
 

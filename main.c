@@ -204,21 +204,20 @@ void  displayJogo(LIS_tppLista estrutura)
 		for(i = 0; i < tamanho; i++)
 			printf(" %c", 0xb2);
 	}
-	printf("\n");
-
-	printf("Branco : ");
+	printf("  Branco : ");
 	if(BAR_ObterTamanhoBar(barb, &tamanho) == BAR_CondRetErro)
 	{
 		printf("Erro ao obter o tamanho da lista BAR (display) \n");
 		exit(-1);
 	}
 	if(tamanho == 0)
-		printf(" empty \n|");
+		printf(" empty\n");
 	else
 	{
 		for(i = 0; i < tamanho; i++)
 			printf(" %c", 0xb0);
 	}
+	printf("|------------------------------------------------------------- \n|");
 	for(j = 11; j >= 0; j--)
 	{
 		for( i = 0; i < 12; i++)

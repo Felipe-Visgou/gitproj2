@@ -481,6 +481,20 @@
    } /* Fim função: LIS  &Procurar elemento contendo valor */
 
 
+/***************************************************************************
+*
+*  Função: LIS  &Obter o tamanho da lista
+*  ****/
+ LIS_tpCondRet LIS_ObterTamanho( LIS_tppLista pLista, int* tam )
+   {
+	   if(tam == NULL || *tam == NULL)
+		   return LIS_CondRetErro;
+	   *tam == pLista->numElem;
+	   
+	   return LIS_CondRetOK;
+   } /* Fim função: LIS  &Obter referência para o tamanho da lista*/
+
+
 /*****  Código das funções encapsuladas no módulo  *****/
 
 

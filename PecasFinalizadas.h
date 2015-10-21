@@ -122,7 +122,7 @@ typedef struct PF_tagFinalizadas * PF_tppFinalizadas;
 *
 ***********************************************************************/
 
-   PF_tpCondRet PF_ObterTamanho(PF_tppFinalizadas pPF, int *tam) ;
+   PF_tpCondRet PF_ObterTamanhoPF(PF_tppFinalizadas pPF, int *tam) ;
 
 /***********************************************************************
 *

@@ -44,6 +44,7 @@ typedef struct TAB_tagTabuleiro {
 
 	LIS_tppLista Casas;
 
+
 } TAB_tpTabuleiro;
 
 
@@ -67,12 +68,16 @@ TAB_tpCondRet TAB_CriarTabuleiro(TAB_tppTabuleiro * pTab,
 
 	/* Cria 15 peças brancas */
 	for(i = 0; i < 15; i++)
+	{
 		if(Pec_CriarPeca(&vtPecaB[i], 'b')!=Pec_CondRetOK)
 			return TAB_CondRetErro;
+	}
 	/* Cria 15 peças pretas */
 	for(i = 0; i < 15; i++)
+	{
 		if(Pec_CriarPeca(&vtPecaP[i], 'p')!=Pec_CondRetOK)
 			return TAB_CondRetErro;
+	}
 	/* Cria 24 listas que representam cada casa do tabuleiro*/
 	for(i = 0; i < 24; i++)
 		vtCasa[i] = LIS_CriarLista(ExcluirValor);

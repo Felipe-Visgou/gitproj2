@@ -101,7 +101,7 @@ PF_tpCondRet PF_AdicionarPeca(PF_tppFinalizadas pPF)
 *  Função: TAB  &Obter Tamanho PF
 *  ****/
 
-PF_tpCondRet PF_ObterTamanhoBar(PF_tppFinalizadas pPF, int *tam)
+PF_tpCondRet PF_ObterTamanhoPF(PF_tppFinalizadas pPF, int *tam)
 {
 	if(tam == NULL)
 		return PF_CondRetErro;

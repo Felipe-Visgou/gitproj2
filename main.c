@@ -69,6 +69,7 @@ void  displayJogo(LIS_tppLista estrutura)
 
 	// obter o valor de cada estrutura
 	IrInicioLista(estrutura);
+	system("cls");
 	tab = (TAB_tppTabuleiro)LIS_ObterValor(estrutura);
 	if(LIS_AvancarElementoCorrente(estrutura, 1) != LIS_CondRetOK)
 	{
@@ -155,72 +156,90 @@ void  displayJogo(LIS_tppLista estrutura)
 	}
 	// a outra parte do tabuleiro (+12 iterações)... 
 	// colocar nos vetores a quantidade de pecas
+	IrInicioLista(casas);
+	LIS_AvancarElementoCorrente(casas, 11);
 	for(i = 0; i < 12; i++)
 	{
 		listaAux = (LIS_tppLista)LIS_ObterValor(casas);
-		if(LIS_ObterTamanho(listaAux, &tamanho) != LIS_CondRetOK)
+		/*if(*/tamanho = LIS_ObterTamanho(listaAux);/* != LIS_CondRetOK)
 		{
 			printf("Erro ao obter o tamanho da lista (display) \n");
 			exit(-1);
-		}
+		}*/
 		peca = (tppPeca)LIS_ObterValor(listaAux);
-		Pec_ObterCor(peca, &corpeca);
-		if(corpeca == preto)
+		if(peca == NULL)
 		{
-			for(j = 0; j < tamanho; j++)
-				v[i][j] = preto;
+			for(j = 0; j < 12; j++)
+				v[i][j] = 0;
 		}
 		else
 		{
-			for(j = 0; j < tamanho; j++)
-				v[i][j] = branco;
+			Pec_ObterCor(peca, &corpeca);
+			if(corpeca == preto)
+			{
+				for(j = 0; j < tamanho; j++)
+					v[i][j] = preto;
+			}
+			else
+			{
+				for(j = 0; j < tamanho; j++)
+					v[i][j] = branco;
+			}
+			for(j = tamanho; j < 12; j++)
+				v[i][j] = 0;
 		}
-		for(j = tamanho; j < 12; j++)
-			v[i][j] = 0;
-		LIS_AvancarElementoCorrente(casas, 1);LIS_AvancarElementoCorrente(casas, 1);
+		LIS_AvancarElementoCorrente(casas, -1);
 	}
-	printf("----------------------------------------BAR---------------------------- \n");
+	printf("------------------------------BAR---------------------------- \n");
 	printf("Preto : ");
-	if(BAR_ObterTamanhoBar(barp, &tamanho) != LIS_CondRetOK)
+	if(BAR_ObterTamanhoBar(barp, &tamanho) == BAR_CondRetErro)
 	{
 		printf("Erro ao obter o tamanho da lista BAR (display) \n");
 		exit(-1);
 	}
-	for(i = 0; i < tamanho; i++)
-		printf(" %c", 0xb2);
-
+	if(tamanho == 0)
+		printf(" empty");
+	else
+	{
+		for(i = 0; i < tamanho; i++)
+			printf(" %c", 0xb2);
+	}
 	printf("\n");
 
 	printf("Branco : ");
-	if(BAR_ObterTamanhoBar(barb, &tamanho) != LIS_CondRetOK)
+	if(BAR_ObterTamanhoBar(barb, &tamanho) == BAR_CondRetErro)
 	{
 		printf("Erro ao obter o tamanho da lista BAR (display) \n");
 		exit(-1);
 	}
-	for(i = 0; i < tamanho; i++)
-		printf(" %c", 0xb0);
-
-	for(i = 12; i > 0; i--)
+	if(tamanho == 0)
+		printf(" empty \n|");
+	else
 	{
-		for(j = 0; j < 12; j++)
+		for(i = 0; i < tamanho; i++)
+			printf(" %c", 0xb0);
+	}
+	for(j = 11; j >= 0; j--)
+	{
+		for( i = 0; i < 12; i++)
 		{
 			if(v[i][j] == 0)
 				valor = ' ';
 			else if(v[i][j] == preto)
-				valor = preto;
+				valor = 0xb0;
 			else if(v[i][j] == branco)
-				valor = branco;
-			printf(" %c    ", valor);
+				valor = 0xb2;
+			printf("%c    ", valor);
 		}
 		printf("|\n|");
 	}
-	printf("| 12 - 11 - 10 - 9  - 8  - 7  - 6  - 5  - 4  - 3  - 2  - 1    | \n");
+	printf("12 - 11 - 10 - 9  - 8  - 7  - 6  - 5  - 4  - 3  - 2  - 1    | \n");
 	DADPnt_ValorPartida(dp, &valorpartida);
 	DADPnt_ObterDono(dp, &dono);
 	PF_ObterTamanhoPF(pfp, &tampfp);
-	printf("Valor da partida : %d \n        Pecas pretas finalizadas : %d \n", valor, tamanho);
+	printf("\nValor da partida : %d        Pecas pretas finalizadas : %d \n", valorpartida, tamanho);
 	PF_ObterTamanhoPF(pfb, &tampfb);
-	printf("Dono do DadoPontos : %c \n      Pecas brancas finalizadas : %d \n", dono, tamanho);
+	printf("\nDono do DadoPontos : %c      Pecas brancas finalizadas : %d \n", dono, tamanho);
 }
 void DestruirValor( void * pValor )
 {

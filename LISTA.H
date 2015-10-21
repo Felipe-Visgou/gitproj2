@@ -358,7 +358,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *     LIS_CondRetErro - ponteiros sao invalidos
 ***********************************************************************/
 
-    LIS_tpCondRet LIS_ObterTamanho( LIS_tppLista pLista, int* tam );
+   int LIS_ObterTamanho( LIS_tppLista pLista);
 
 #undef LISTA_EXT
 

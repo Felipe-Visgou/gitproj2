@@ -21,11 +21,15 @@ int main (void)
 	TAB_tppTabuleiro tabuleiro; // tabuleiro
 	PF_tppFinalizadas pfbranca, pfpreta; // pecas finalizadas
 	BAR_tppCapturadas barbranca, barpreta; // pecas capturadas
+	LIS_tppLista casas, casa; // lista de casas auxiliar usada no jogo
 	int dado1, dado2; // dados da partida
 	tppDadoPontos dp;
 	char preto = 'p', branco = 'b';
-	int tampfb, tampfp; // tamanho da estrutura de pecas finalizadas, elas que determinam o termino do jogo
-
+	int tampfb, tampfp, temp, tamanho; // tamanho da estrutura de pecas finalizadas, elas que determinam o termino do jogo
+	int casaEscolhida, opt[3] = {0,0,0}, contOpt = 0, i, j, k;
+	void* aux;
+	char jogadordaVez, corObtida;
+	tppPeca pecaAux;
 	// Criar criar as estruturas e adicionalas na principal
 
 	TAB_CriarTabuleiro(&tabuleiro, DestruirValor);
@@ -45,12 +49,139 @@ int main (void)
 	PF_ObterTamanhoPF(pfbranca, &tampfb);
 	PF_ObterTamanhoPF(pfpreta, &tampfp);
 
-	while(tampfb < 12 || tampfp < 12)
+	if(TAB_ObterCasas(tabuleiro, &casas)!= TAB_CondRetOK)
 	{
-		displayJogo(Principal);
-		// jogar
+		printf("Erro ao obter a lista de casas (mais) \n");
+		return 0;
 	}
-	//fim de jogo
+	displayJogo(Principal);
+	// jogar os dados para ver quem começa
+	if(DAD_NumPular(&dado1) != DAD_CondRetOK)
+	{
+		printf("Erro ao jogar o dado (main) \n");
+		return 0;
+	}
+	if(DAD_NumPular(&dado2) != DAD_CondRetOK)
+	{
+		printf("Erro ao jogar o dado (main) \n");
+		return 0;
+	}
+	// se os dois valores forem iguais
+	while(dado1 == dado2)
+	{
+		if(DAD_NumPular(&dado1) != DAD_CondRetOK)
+		{
+			printf("Erro ao jogar o dado (main) \n");
+			return 0;
+		}
+		if(DAD_NumPular(&dado2) != DAD_CondRetOK)
+		{
+			printf("Erro ao jogar o dado (main) \n");
+			return 0;
+		}
+	}
+	// Dado1 corresponde ao jogador branco e dado2 corresponde ao jogador preto
+	printf("Quem comeca eh o %s \n", (dado1 > dado2)? "branco": "preto");
+	jogadordaVez = (dado1 > dado2)? 'b':'p';
+	while(tampfp < 15 || tampfb < 15)
+	{
+		printf("Escolha de qual casa deseja andar \n");
+		ESCOLHADECASA:
+		scanf("%d", &casaEscolhida);
+		IrInicioLista(casas);
+		LIS_AvancarElementoCorrente(casas, casaEscolhida -1);
+		// obter o valor da lista casa requerida
+		casa = (LIS_tppLista)LIS_ObterValor(casas);
+		// obter o valor da peca
+		aux = LIS_ObterValor(casa);
+		// a casa é inválida
+		while(aux == NULL)
+		{
+			printf("Esta casa esta desocupada, escolha outra casa \n");
+			printf("Escolha de qual casa deseja andar \n");
+			scanf("%d", &casaEscolhida);
+			IrInicioLista(casas);
+			LIS_AvancarElementoCorrente(casas, casaEscolhida -1);
+			aux = LIS_ObterValor(casas);
+		}
+		// a casa é valida
+		// agora é saber as opçoes que o jogador tem
+		// ordena os dados, dado1 < dado2
+		if(dado1 > dado2)
+		{
+			temp = dado1;
+			dado1 = dado2;
+			dado2 = temp;
+		}
+		if(jogadordaVez == 'p')
+		{
+			LIS_AvancarElementoCorrente(casas, dado1); // avanca para a posicao dado1
+			casa = (LIS_tppLista)LIS_ObterValor(casas);
+			aux = LIS_ObterValor(casa);
+			if(aux == NULL)
+			{
+				opt[contOpt] = dado1;
+				contOpt++;
+			}
+			else
+			{
+				Pec_ObterCor((tppPeca)aux, &corObtida);
+				if(corObtida == jogadordaVez)
+				{
+					opt[contOpt] = dado1;
+					contOpt++;
+				}
+				else
+				{
+					tamanho = LIS_ObterTamanho(casa);
+					if(tamanho == 1)
+					{
+						opt[contOpt] = dado1;
+						contOpt++;
+					}
+				}
+			}
+			LIS_AvancarElementoCorrente(casas, dado1 - dado2); // avanca para a posicao dado2
+			casa = (LIS_tppLista)LIS_ObterValor(casas);
+			aux = LIS_ObterValor(casa);
+			if(aux == NULL)
+			{
+				opt[contOpt] = dado2;
+				contOpt++;
+			}
+			else
+			{
+				Pec_ObterCor((tppPeca)aux, &corObtida);
+				if(corObtida == jogadordaVez)
+				{
+					opt[contOpt] = dado2;
+					contOpt++;
+				}
+				else
+				{
+					tamanho = LIS_ObterTamanho(casa);
+					if(tamanho == 1)
+					{
+						opt[contOpt] = dado2;
+						contOpt++;
+					}
+				}
+			}
+			if(opt[0] == 0)
+			{
+				printf("Nao ha opcoes, escolha outra casa \n");
+				goto ESCOLHADECASA;
+			}
+			for(i = 0; opt[i] != 0; i++)
+			{
+				printf("Opcao %d: Mover para a casa %d", i+1, casaEscolhida+opt[i]);
+			}
+			// ONDE PARAMOS??? TERMINAMOS A PRIMEIRA JOGADA DO DADO, FALTA AGORA ELE MOVER A PECA E CALUCLAR AS OUTRAS OPCOES
+
+
+
+
+
 }
 void  displayJogo(LIS_tppLista estrutura)
 {

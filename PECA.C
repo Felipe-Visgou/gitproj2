@@ -82,6 +82,11 @@ Pec_tpCondRet Pec_DestruirPeca(tppPeca  Peca)
 
 Pec_tpCondRet Pec_ObterCor(tppPeca  Peca, char *cor)
 {
+	if((Peca->cor != 'b') && (Peca->cor != 'p'))
+	{
+		printf("Cor obtida estah errada \n");
+		return Pec_CondRetErro;
+	}
 	*cor = Peca->cor;
 	return Pec_CondRetOK;
 }

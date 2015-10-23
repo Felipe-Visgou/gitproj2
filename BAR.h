@@ -161,6 +161,23 @@ typedef struct BAR_tagCapturadas * BAR_tppCapturadas ;
 
    BAR_tpCondRet BAR_ObterCorBar(BAR_tppCapturadas pBAR, char *cor) ;
 
+/***************************************************************************
+*
+*  Função: TAB  &Destruir BAR
+*
+*  $ED Descrição da função
+*		Destroi a lista BAR.
+*
+*  $EP Parâmetros
+*	  PBar			- A BAR que se destruir
+*
+*  $FV Valor retornado
+*		BAR_CondRetOk
+*		BAR_CondRetErro
+*  ****/
+
+	BAR_tpCondRet Bar_DestruirBar(BAR_tppCapturadas pBAR);
+
  /********************************************************************/
 
 #undef BAR_EXT

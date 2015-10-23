@@ -21,12 +21,13 @@
 #include   <stdio.h>
 #include   <string.h>
 #include   <malloc.h>
-#include "LISTA.h"
-#include "PECA.h"
+
+
 #define BAR_OWN
 #include "BAR.h"
+#include "LISTA.H"
+#include "PECA.h"
 #undef BAR_OWN
-
 
 /***********************************************************************
 *
@@ -101,12 +102,12 @@ BAR_tpCondRet BAR_AdicionarPeca(BAR_tppCapturadas pBAR)
 
 BAR_tpCondRet BAR_RemoverPeca(BAR_tppCapturadas pBAR)
 {
+	pBAR->tamanho--;
 	if(LIS_ExcluirElemento(pBAR->ListaCapturadas) != LIS_CondRetOK)
 	{
 		printf("Erro ao excluir peca da lsita (BAR) \n");
 		return BAR_CondRetErro;
 	}
-
 	return BAR_CondRetOK;
 }
 
@@ -122,8 +123,8 @@ BAR_tpCondRet BAR_ObterTamanhoBar(BAR_tppCapturadas pBAR, int *tam)
 
 	*tam = pBAR->tamanho;
 
-	if(*tam == 0)
-		return BAR_CondRetVazia;
+	//if(*tam == 0)
+		//return BAR_CondRetVazia;
 
 	return BAR_CondRetOK;
 }
@@ -153,5 +154,17 @@ BAR_tpCondRet BAR_ObterCorBar(BAR_tppCapturadas pBAR, char *cor)
 	}
 	return BAR_CondRetOK;
 }*/
-/******** Fim do Módulo de Implementação: BAR Lista de Peças Capturadas *************/
 
+/***************************************************************************
+*
+*  Função: TAB  &Destruir BAR
+*  ****/
+
+BAR_tpCondRet Bar_DestruirBar(BAR_tppCapturadas pBAR)
+{
+	LIS_DestruirLista(pBAR->ListaCapturadas);
+	free(pBAR);
+	return BAR_CondRetOK;
+}
+
+/******** Fim do Módulo de Implementação: BAR Lista de Peças Capturadas *************/

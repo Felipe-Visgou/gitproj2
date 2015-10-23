@@ -1,0 +1,36 @@
+// Script:    TesteLista.script
+// Autor:     Arndt von Staa, Tassio Miranda
+// Data:      23/10/2015
+//
+
+==Criar BAR Branco
+=criarbar		1	'b'	0
+
+==Criar BAR Preto	
+=criarbar		2	'p'	0
+
+==Obter Cor do BAR Branco
+=obtercorbar	1	'b'	0
+
+==Obter Cor do BAR Preto
+=obtercorbar	2	'p'	0
+
+==Aumentar o BAR Branco em 2 peças
+=addbar			1	0
+=addbar			1	0
+
+==Obter Tamaho do BAR Branco com 2 pecas
+=obtertamanhobar	1	2	0
+
+==Remover 2 peças do BAR Branco
+=removerbar		1	0
+=removerbar		1	0
+
+==Obter Tamaho do BAR Branco com 0 pecas
+=obtertamanhobar	1	0	0
+
+==Destruir BAR Branco
+=destruirbar	1	0
+
+==Destruir BAR Preto
+=destruirbar	2	0

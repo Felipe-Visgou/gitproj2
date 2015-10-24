@@ -106,6 +106,7 @@ BAR_tpCondRet BAR_RemoverPeca(BAR_tppCapturadas pBAR)
 		printf("Erro ao excluir peca da lsita (BAR) \n");
 		return BAR_CondRetErro;
 	}
+	pBAR->tamanho--;
 
 	return BAR_CondRetOK;
 }

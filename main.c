@@ -16,6 +16,7 @@
 
 	void  displayJogo(LIS_tppLista estrutura);
 	LIS_tppLista carregaJogo(FILE** fp);
+	void salvarJogo(LIS_tppLista estrutura);
 
 int main (void)
 {
@@ -25,10 +26,10 @@ int main (void)
 	PF_tppFinalizadas pfbranca, pfpreta; // pecas finalizadas
 	BAR_tppCapturadas barbranca, barpreta; // pecas capturadas
 	LIS_tppLista casas, casa; // lista de casas auxiliar usada no jogo
-	int dado1, dado2; // dados da partida
+	int dado1, dado2, dado3, dado4; // dados da partida
 	tppDadoPontos dp;
 	char preto = 'p', branco = 'b';
-	int tampfb, tampfp, temp, tamanho; // tamanho da estrutura de pecas finalizadas, elas que determinam o termino do jogo
+	int tampfb = 0, tampfp = 0, temp, tamanho, tambarb, tambarp; // tamanho da estrutura de pecas finalizadas, elas que determinam o termino do jogo
 	int casaEscolhida, opt[3] = {0,0,0}, contOpt = 0, i, j, k, opcao, opcaorestante;
 	void* aux;
 	char jogadordaVez, corObtida;
@@ -114,15 +115,273 @@ JOGARDADO:
 	// se os dois valores forem iguais
 	if(dado1 == dado2) goto JOGARDADO;
 	// Dado1 corresponde ao jogador branco e dado2 corresponde ao jogador preto
-	PF_ObterTamanhoPF(pfbranca, &tampfb);
-	PF_ObterTamanhoPF(pfpreta, &tampfp);
 	jogadordaVez = (dado1 > dado2)? 'b':'p';
 	while(tampfp < 15 || tampfb < 15)
 	{
 LABEL1:
 		printf("Jogador da vez eh o %s \n", (jogadordaVez == 'b')? "Branco" : "Preto");
+		printf("1: Jogar dados \n0: Salvar e Sair \n");
+		scanf("%d", &resp);
+		if(resp == 0)
+		{
+			salvarJogo(Principal);
+			printf("Obrigado por Jogar \n");
+			Sleep(2);
+			return 0;
+		}
+		if(resp > 1)
+		{
+			printf("Opcao errada, tente denovo \n");
+			goto LABEL1;
+		}
+		displayJogo(Principal);
+		printf("Jogador da vez eh o %s \n", QUESTION "Branco" : "Preto");
 		printf("Dados : %d %d \n", dado1, dado2);
-		printf("Escolha de qual casa deseja andar \n");
+		// checa se a bar está com alguma peça, se sim, calcula as opções q ele tem com os dados jogados
+		BAR_ObterTamanhoBar(barbranca, &tambarb);
+		BAR_ObterTamanhoBar(barpreta,&tambarp);
+		if(((jogadordaVez == 'b') && (tambarb > 0)) || ((jogadordaVez == 'p') && (tambarp > 0))) // o jogador da vez tem peça no bar?
+		{
+			// calcula as opções do jogador
+			QUESTION IrInicioLista(casas) : IrFinalLista(casas);
+			LIS_AvancarElementoCorrente(casas, QUESTION dado1 - 1 : -dado1 + 1); // avanca para a posicao dado1
+			casa = (LIS_tppLista)LIS_ObterValor(casas);
+			aux = LIS_ObterValor(casa);
+			contOpt = 0;
+			for(i = 0; i < 3; i++)
+				opt[i] = 0;
+			if(aux == NULL)
+			{
+				opt[contOpt] = dado1;
+				contOpt++;
+			}
+			else
+			{
+				Pec_ObterCor((tppPeca)aux, &corObtida);
+				if(corObtida == jogadordaVez)
+				{
+					opt[contOpt] = dado1;
+					contOpt++;
+				}
+				else
+				{
+					tamanho = LIS_ObterTamanho(casa);
+					if(tamanho == 1)
+					{
+						opt[contOpt] = dado1;
+						contOpt++;
+					}
+				}
+			}
+			QUESTION IrInicioLista(casas) : IrFinalLista(casas);
+			LIS_AvancarElementoCorrente(casas, QUESTION dado2 - 1 : -dado2 + 1); // avanca para a posicao dado1
+			casa = (LIS_tppLista)LIS_ObterValor(casas);
+			aux = LIS_ObterValor(casa);
+			if(aux == NULL)
+			{
+				opt[contOpt] = dado2;
+				contOpt++;
+			}
+			else
+			{
+				Pec_ObterCor((tppPeca)aux, &corObtida);
+				if(corObtida == jogadordaVez)
+				{
+					opt[contOpt] = dado2;
+					contOpt++;
+				}
+				else
+				{
+					tamanho = LIS_ObterTamanho(casa);
+					if(tamanho == 1)
+					{
+						opt[contOpt] = dado2;
+						contOpt++;
+					}
+				}
+			}
+			if(opt[0] == 0)
+			{
+				printf("Nao ha opcoes, passando a vez \n");
+				jogadordaVez = QUESTION 'p' : 'b';
+				contOpt = 0;
+				for(i = 0; i < 3; i++)
+					opt[i] = 0;
+				PF_ObterTamanhoPF(pfbranca, &tampfb);
+				PF_ObterTamanhoPF(pfpreta, &tampfp);
+				if(DAD_NumPular(&dado1) != DAD_CondRetOK)
+				{
+					printf("Erro ao jogar o dado (main) \n");
+					return 0;
+				}
+				Sleep(1);
+				if(DAD_NumPular(&dado2) != DAD_CondRetOK)
+				{
+					printf("Erro ao jogar o dado (main) \n");
+					return 0;
+				}
+				goto LABEL1;
+			}
+			for(i = 0; i < 2; i++)
+			{
+				if(opt[i] == 0) continue;
+				printf("%d : Mover peca do BAR para a casa %d \n", i+1, QUESTION opt[i] : 25 - opt[i]);
+			}
+			printf("0 : Salvar e Sair \n");
+ESCOLHAOPCAO3:
+			scanf("%d", &opcao);
+			if(opcao > 2)
+			{
+				printf("Opcao inválida, escolha novamente \n");
+				goto ESCOLHAOPCAO3;
+			}
+			if(opcao == 0)
+			{
+				salvarJogo(Principal);
+				printf("Obrigado por jogar! \n");
+				Sleep(2);
+				return 0;
+			}
+			QUESTION IrInicioLista(casas) : IrFinalLista(casas);
+			LIS_AvancarElementoCorrente(casas,QUESTION opt[opcao-1] -1: -opt[opcao-1] +1 );
+			casa = (LIS_tppLista)LIS_ObterValor(casas);
+			aux = LIS_ObterValor(casa);
+			Pec_CriarPeca(&pecaAux, QUESTION branco : preto);
+			if(tamanho == 1)
+			{
+				Pec_ObterCor((tppPeca)aux, &corObtida);
+				if(corObtida != jogadordaVez) // se tamanho == 1 & a cor diferete da dele -> comer a peca do inimigo
+				{
+					if(LIS_ExcluirElemento(casa) != LIS_CondRetOK)
+					{
+						printf("Erro ao comer a peca (main) \n");
+						return 0;
+					}
+					LIS_InserirElementoAntes(casa, pecaAux);
+					// adiciona uma peca com a corObtida no BAR
+					BAR_AdicionarPeca(QUESTION barpreta : barbranca);
+					// remove a peça do bar
+					BAR_RemoverPeca(QUESTION barbranca : barpreta);
+				}
+				else // se é tamanho 1 mas com cor igual
+				{
+					LIS_InserirElementoAntes(casa, pecaAux);
+					BAR_RemoverPeca(QUESTION barbranca : barpreta);
+				}
+			}
+			else
+			{
+				LIS_InserirElementoAntes(casa, pecaAux);
+				BAR_RemoverPeca(QUESTION barbranca : barpreta);
+			}
+			// obtem o novo tamanho do BAR
+			BAR_ObterTamanhoBar(barbranca, &tambarb);
+			BAR_ObterTamanhoBar(barpreta,&tambarp);
+			if(((jogadordaVez == 'b') && (tambarb > 0)) || ((jogadordaVez == 'p') && (tambarp > 0)))
+			{
+				displayJogo(Principal);
+				opcaorestante = (opt[opcao - 1] == dado1)? dado2 : dado1;
+				for( i = 0; i < 2; i++)
+				{
+					if(opt[i] == 0) continue; else break;
+				}
+				if(i > 1)
+				{
+					printf("Acabaram-se as opções. passando a vez \n");
+					jogadordaVez = QUESTION 'p' : 'b';
+					contOpt = 0;
+					for(i = 0; i < 3; i++)
+						opt[i] = 0;
+					PF_ObterTamanhoPF(pfbranca, &tampfb);
+					PF_ObterTamanhoPF(pfpreta, &tampfp);
+					if(DAD_NumPular(&dado1) != DAD_CondRetOK)
+					{
+						printf("Erro ao jogar o dado (main) \n");
+						return 0;
+					}
+					Sleep(1);
+					if(DAD_NumPular(&dado2) != DAD_CondRetOK)
+					{
+						printf("Erro ao jogar o dado (main) \n");
+						return 0;
+					}
+					goto LABEL1;
+				}
+				printf("Dado Restante : %d \n", opcaorestante);
+				opt[opcao-1] = 0;
+				// mover a peça do bar para o tabuleiro
+				printf("1: Mover a peca do BAR para a casa %d \n", QUESTION opcaorestante : 25 - opcaorestante);
+ESCOLHAOPCAO4:
+				scanf("%d", &opcao);
+				if(opcao < 0 || opcao > 2)
+				{
+					printf("Opcao inválida, escolha novamente \n");
+					goto ESCOLHAOPCAO4;
+				}
+				if(opcao == 0)
+				{
+					salvarJogo(Principal);
+					printf("Obrigado por jogar! \n");
+					Sleep(2);
+					return 0;
+				}
+				QUESTION IrInicioLista(casas) : IrFinalLista(casas);
+				LIS_AvancarElementoCorrente(casas,QUESTION opcaorestante -1: opcaorestante +1 );
+				casa = (LIS_tppLista)LIS_ObterValor(casas);
+				aux = LIS_ObterValor(casa);
+				Pec_CriarPeca(&pecaAux, QUESTION branco : preto);
+				if(tamanho == 1)
+				{
+					Pec_ObterCor((tppPeca)aux, &corObtida);
+					if(corObtida != jogadordaVez) // se tamanho == 1 & a cor diferete da dele -> comer a peca do inimigo
+					{
+						if(LIS_ExcluirElemento(casa) != LIS_CondRetOK)
+						{
+							printf("Erro ao comer a peca (main) \n");
+							return 0;
+						}
+						LIS_InserirElementoAntes(casa, pecaAux);
+						// adiciona uma peca com a corObtida no BAR
+						BAR_AdicionarPeca(QUESTION barpreta : barbranca);
+						// remove a peça do bar
+						BAR_RemoverPeca(QUESTION barbranca : barpreta);
+					}
+					else // se é tamanho 1 mas com cor igual
+					{
+						LIS_InserirElementoAntes(casa, pecaAux);
+						BAR_RemoverPeca(QUESTION barbranca : barpreta);
+					}
+				}
+				else
+				{
+					LIS_InserirElementoAntes(casa, pecaAux);
+					BAR_RemoverPeca(QUESTION barbranca : barpreta);
+				}
+				// acabou a vez do jogador de tirar as peças do bar (trocar de jogador)
+				BAR_ObterTamanhoBar(barbranca, &tambarb);
+				BAR_ObterTamanhoBar(barpreta,&tambarp);
+				jogadordaVez = QUESTION 'p' : 'b';
+				contOpt = 0;
+				for(i = 0; i < 3; i++)
+					opt[i] = 0;
+				PF_ObterTamanhoPF(pfbranca, &tampfb);
+				PF_ObterTamanhoPF(pfpreta, &tampfp);
+				if(DAD_NumPular(&dado1) != DAD_CondRetOK)
+				{
+					printf("Erro ao jogar o dado (main) \n");
+					return 0;
+				}
+				Sleep(1);
+				if(DAD_NumPular(&dado2) != DAD_CondRetOK)
+				{
+					printf("Erro ao jogar o dado (main) \n");
+					return 0;
+				}
+				goto LABEL1;
+			}
+		goto OPCAORESTANTE;
+		}
+			printf("Escolha de qual casa deseja andar \n");
 ESCOLHADECASA:
 		scanf("%d", &casaEscolhida);
 		IrInicioLista(casas);
@@ -167,16 +426,11 @@ ESCOLHADECASA:
 		// a casa é valida
 		// agora é saber as opçoes que o jogador tem
 		// ordena os dados, dado1 < dado2
-		if(dado1 > dado2)
-		{
-			temp = dado1;
-			dado1 = dado2;
-			dado2 = temp;
-		}
 		LIS_AvancarElementoCorrente(casas, QUESTION dado1 : -dado1); // avanca para a posicao dado1
 		casa = (LIS_tppLista)LIS_ObterValor(casas);
 		aux = LIS_ObterValor(casa);
 		contOpt = 0;
+		// obtem as opcoes possiveis
 		if(aux == NULL)
 		{
 			opt[contOpt] = dado1;
@@ -230,7 +484,7 @@ ESCOLHADECASA:
 		}
 		for(i = 0; i < 3; i++)
 		{
-			if(((jogadordaVez == 'b') && (opt[i] + casaEscolhida  > 24)) || ((casaEscolhida - opt[i] < 1) && (jogadordaVez == 'b')))
+			if(((jogadordaVez == 'b') && (opt[i] + casaEscolhida  > 24)) || ((casaEscolhida - opt[i] < 1) && (jogadordaVez == 'p')))
 				opt[i] = 0;
 		}
 		if(opt[0] == 0)
@@ -295,6 +549,7 @@ ESCOLHAOPCAO:
 				}
 			}
 		}
+OPCAORESTANTE:
 		displayJogo(Principal);
 		opcaorestante = (opt[opcao - 1] == dado1)? dado2 : dado1;
 		printf("Dado Restante : %d \n", opcaorestante);
@@ -375,7 +630,7 @@ PECANULL2:
 		}
 		for(i = 0; i < 3; i++)
 		{
-			if(((jogadordaVez == 'b') && (opt[i] + casaEscolhida  > 24)) || ((casaEscolhida - opt[i] < 1) && (jogadordaVez == 'b')))
+			if(((jogadordaVez == 'b') && (opt[i] + casaEscolhida  > 24)) || ((casaEscolhida - opt[i] < 1) && (jogadordaVez == 'p')))
 				opt[i] = 0;
 		}
 		if(opt[0] == 0)
@@ -453,6 +708,8 @@ JOGARDADO1:
 		contOpt = 0;
 		for(i = 0; i < 3; i++)
 			opt[i] = 0;
+		PF_ObterTamanhoPF(pfbranca, &tampfb);
+		PF_ObterTamanhoPF(pfpreta, &tampfp);
 	}
 
 
@@ -718,29 +975,35 @@ void salvarJogo(LIS_tppLista estrutura)
 		tamanho = LIS_ObterTamanho(listaAux);
 		if(tamanho == 0) 
 		{
-			fwrite(&tamanho, 4, 1, fp);
+			fprintf(fp, "%d", tamanho);
 			fprintf(fp,"\n");
 			LIS_AvancarElementoCorrente(casas, 1);
 			continue;
 		}
 		Pec_ObterCor(peca, &corpeca);
-		fwrite(&tamanho, 4, 1, fp);
-		fwrite(&corpeca, 1, 1, fp);
+		fprintf(fp, "%d", tamanho);
+		fprintf(fp, "%c", corpeca);
 		fprintf(fp,"\n");
 		LIS_AvancarElementoCorrente(casas, 1);
 	}
 	BAR_ObterTamanhoBar(barb, &tamanho);
-	fwrite(&tamanho, 4, 1, fp);
+	fprintf(fp, "%d", tamanho);
+	fprintf(fp,"\n");
 	PF_ObterTamanhoPF(pfb, &tamanho);
-	fwrite(&tamanho, 4, 1, fp);
+	fprintf(fp, "%d", tamanho);
+	fprintf(fp,"\n");
 	BAR_ObterTamanhoBar(barp, &tamanho);
-	fwrite(&tamanho, 4, 1, fp);
+	fprintf(fp, "%d", tamanho);
+	fprintf(fp,"\n");
 	PF_ObterTamanhoPF(pfp, &tamanho);
-	fwrite(&tamanho, 4, 1, fp);
+	fprintf(fp, "%d", tamanho);
+	fprintf(fp,"\n");
 	DADPnt_ValorPartida(dp, &valorpartida);
-	fwrite(&valorpartida, 4, 1, fp);
+	fprintf(fp, "%d", valorpartida);
+	fprintf(fp,"\n");
 	DADPnt_ObterDono(dp, &dono);
-	fwrite(&dono, 1, 1, fp);
+	fprintf(fp, "%c", dono);
+	fprintf(fp,"\n");
 	fclose(fp);
 }
 LIS_tppLista carregaJogo(FILE** fp)
@@ -833,6 +1096,7 @@ LIS_tppLista carregaJogo(FILE** fp)
 	LIS_InserirElementoApos(estrutura, pfp);
 	LIS_InserirElementoApos(estrutura, dp);
 	return estrutura;
+	fclose(*fp);
 }
 
 

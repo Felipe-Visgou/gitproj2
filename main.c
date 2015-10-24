@@ -15,7 +15,7 @@
 // Imprimir o estado do jogo
 
 	void  displayJogo(LIS_tppLista estrutura);
-	void corrigeCasas(LIS_tppLista pCasas);
+	LIS_tppLista carregaJogo(FILE** fp);
 
 int main (void)
 {
@@ -32,9 +32,53 @@ int main (void)
 	int casaEscolhida, opt[3] = {0,0,0}, contOpt = 0, i, j, k, opcao, opcaorestante;
 	void* aux;
 	char jogadordaVez, corObtida;
+	int resp;
+	FILE* fp;
 	tppPeca pecaAux;
 	// Criar criar as estruturas e adicionalas na principal
+	printf(" ----------------- menu -------------------- \n");
+	printf(" 1: Novo Jogo \n");
+	printf(" 2: Carregar Jogo \n");
+	scanf("%d", &resp);
+	if(resp == 2)
+	{
+		Principal = carregaJogo(&fp);
+		IrInicioLista(Principal);
+		tabuleiro = (TAB_tppTabuleiro)LIS_ObterValor(Principal);
+		if(LIS_AvancarElementoCorrente(Principal, 1) != LIS_CondRetOK)
+		{
+			printf("Erro ao andar na estrutura principal (display) \n");
+			exit(-1);
+		}
 
+		barbranca = (BAR_tppCapturadas)LIS_ObterValor(Principal);
+		if(LIS_AvancarElementoCorrente(Principal, 1) != LIS_CondRetOK)
+		{
+			printf("Erro ao andar na estrutura principal (display) \n");
+			exit(-1);
+		}
+		pfbranca = (PF_tppFinalizadas)LIS_ObterValor(Principal);
+		if(LIS_AvancarElementoCorrente(Principal, 1) != LIS_CondRetOK)
+		{
+			printf("Erro ao andar na estrutura principal (display) \n");
+			exit(-1);
+		}
+
+		barpreta = (BAR_tppCapturadas)LIS_ObterValor(Principal);
+		if(LIS_AvancarElementoCorrente(Principal, 1) != LIS_CondRetOK)
+		{
+			printf("Erro ao andar na estrutura principal (display) \n");
+			exit(-1);
+		}
+		pfpreta = (PF_tppFinalizadas)LIS_ObterValor(Principal);
+		if(LIS_AvancarElementoCorrente(Principal, 1) != LIS_CondRetOK)
+		{
+			printf("Erro ao andar na estrutura principal (display) \n");
+			exit(-1);
+		}
+		dp = (tppDadoPontos)LIS_ObterValor(Principal);
+		goto JOGARDADO;
+	}
 	TAB_CriarTabuleiro(&tabuleiro, DestruirValor);
 	PF_CriarPF(&pfbranca, branco, DestruirValor);
 	PF_CriarPF(&pfpreta, preto, DestruirValor);
@@ -48,18 +92,14 @@ int main (void)
 	LIS_InserirElementoApos(Principal, barpreta);
 	LIS_InserirElementoApos(Principal, pfpreta);
 	LIS_InserirElementoApos(Principal, dp);
-
-	PF_ObterTamanhoPF(pfbranca, &tampfb);
-	PF_ObterTamanhoPF(pfpreta, &tampfp);
-
+	// jogar os dados para ver quem começa
+JOGARDADO:
 	if(TAB_ObterCasas(tabuleiro, &casas)!= TAB_CondRetOK)
 	{
 		printf("Erro ao obter a lista de casas (mais) \n");
 		return 0;
 	}
 	displayJogo(Principal);
-	// jogar os dados para ver quem começa
-JOGARDADO:
 	if(DAD_NumPular(&dado1) != DAD_CondRetOK)
 	{
 		printf("Erro ao jogar o dado (main) \n");
@@ -74,6 +114,8 @@ JOGARDADO:
 	// se os dois valores forem iguais
 	if(dado1 == dado2) goto JOGARDADO;
 	// Dado1 corresponde ao jogador branco e dado2 corresponde ao jogador preto
+	PF_ObterTamanhoPF(pfbranca, &tampfb);
+	PF_ObterTamanhoPF(pfpreta, &tampfp);
 	jogadordaVez = (dado1 > dado2)? 'b':'p';
 	while(tampfp < 15 || tampfb < 15)
 	{
@@ -134,6 +176,7 @@ ESCOLHADECASA:
 		LIS_AvancarElementoCorrente(casas, QUESTION dado1 : -dado1); // avanca para a posicao dado1
 		casa = (LIS_tppLista)LIS_ObterValor(casas);
 		aux = LIS_ObterValor(casa);
+		contOpt = 0;
 		if(aux == NULL)
 		{
 			opt[contOpt] = dado1;
@@ -185,15 +228,15 @@ ESCOLHADECASA:
 				}
 			}
 		}
+		for(i = 0; i < 3; i++)
+		{
+			if(((jogadordaVez == 'b') && (opt[i] + casaEscolhida  > 24)) || ((casaEscolhida - opt[i] < 1) && (jogadordaVez == 'b')))
+				opt[i] = 0;
+		}
 		if(opt[0] == 0)
 		{
 			printf("Nao ha opcoes, escolha outra casa \n");
 			goto ESCOLHADECASA;
-		}
-		for(i = 0; i < 3; i++)
-		{
-			if(opt[i] + casaEscolhida  > 24 && casaEscolhida + opt[i] < 1)
-				opt[i] = 0;
 		}
 		for(i = 0; opt[i] != 0; i++)
 		{
@@ -215,7 +258,7 @@ ESCOLHAOPCAO:
 			LIS_AvancarElementoCorrente(casas, QUESTION opt[opcao-1] : -opt[opcao-1]);
 			casa = (LIS_tppLista)LIS_ObterValor(casas);
 			tamanho = LIS_ObterTamanho(casa);
-			aux = LIS_ObterValor(casas);
+			aux = LIS_ObterValor(casa);
 			if(tamanho == 1)
 			{
 				Pec_ObterCor((tppPeca)aux, &corObtida);
@@ -302,6 +345,8 @@ PECANULL2:
 		// a casa é valida basta mover mostar a opcao e mover a peca
 		//calcular as opçoes novamente
 		LIS_AvancarElementoCorrente(casas, QUESTION opcaorestante : -opcaorestante);
+		casa = (LIS_tppLista)LIS_ObterValor(casas);
+		aux = LIS_ObterValor(casa);
 		contOpt = 0;
 		for(i = 0; i < 3; i++)
 			opt[i] = 0;
@@ -328,6 +373,11 @@ PECANULL2:
 				}
 			}
 		}
+		for(i = 0; i < 3; i++)
+		{
+			if(((jogadordaVez == 'b') && (opt[i] + casaEscolhida  > 24)) || ((casaEscolhida - opt[i] < 1) && (jogadordaVez == 'b')))
+				opt[i] = 0;
+		}
 		if(opt[0] == 0)
 		{
 			printf("Nao ha opcoes, escolha outra casa \n");
@@ -348,7 +398,7 @@ ESCOLHAOPCAO2:
 			LIS_AvancarElementoCorrente(casas, QUESTION opcaorestante : -opcaorestante);
 			casa = (LIS_tppLista)LIS_ObterValor(casas);
 			tamanho = LIS_ObterTamanho(casa);
-			aux = LIS_ObterValor(casas);
+			aux = LIS_ObterValor(casa);
 			if(tamanho == 1)
 			{
 				Pec_ObterCor((tppPeca)aux, &corObtida);
@@ -693,19 +743,21 @@ void salvarJogo(LIS_tppLista estrutura)
 	fwrite(&dono, 1, 1, fp);
 	fclose(fp);
 }
-void carregaJogo(LIS_tppLista* estrutura)
+LIS_tppLista carregaJogo(FILE** fp)
 {
 	TAB_tppTabuleiro tab; // tabuleiro
 	PF_tppFinalizadas pfb, pfp; // pecas finalizadas
 	BAR_tppCapturadas barb, barp; // pecas capturadas
 	tppDadoPontos dp;
+	LIS_tppLista estrutura = LIS_CriarLista(DestruirValor);
 	char  corpeca, branco = 'b', preto = 'p';
 	int tamanho; // tamanho da estrutura de pecas finalizadas, elas que determinam o termino do jogo
 	LIS_tppLista casas, listaAux;
 	tppPeca peca;
 	int i, j,valorpartida, novovalor = 2;
 	char  dono;
-	FILE* fp = fopen("game.txt", "r");
+	*fp = fopen("game.txt", "r");
+	if(*fp == NULL) {printf("erro ao abrir arquivo \n"); return ;}
 
 	TAB_CriarTabuleiro(&tab, DestruirValor);
 	PF_CriarPF(&pfb, branco, DestruirValor);
@@ -715,58 +767,72 @@ void carregaJogo(LIS_tppLista* estrutura)
 	DADPnt_CriarDado(&dp);
 	TAB_ObterCasas(tab, &casas);
 	IrInicioLista(casas);
+	// esvaziar as casas do tabuleiro criado
+	for(i = 0; i < 24; i++)
+	{
+		listaAux = (LIS_tppLista)LIS_ObterValor(casas);
+		LIS_EsvaziarLista(listaAux);
+		LIS_AvancarElementoCorrente(casas, 1);
+	}
+	IrInicioLista(casas);
 	for( i = 0; i < 24; i++)
 	{
 		listaAux = (LIS_tppLista)LIS_ObterValor(casas);
-		fread(&tamanho, 4, 1, fp);
+		fscanf(*fp, "%d", &tamanho);
 		if(tamanho == 0)
 		{
 			LIS_AvancarElementoCorrente(casas, 1);
-			fscanf(fp, "\n");
+			fscanf(*fp, "\n");
 			continue;
 		}
-		fread(&corpeca, 1, 1, fp);
+		fscanf(*fp, "%c", &corpeca);
 		for(j = 0; j < tamanho; j++)
 		{
 			Pec_CriarPeca(&peca, corpeca);
 			LIS_InserirElementoApos(listaAux, peca);
 		}
-		fscanf(fp, "\n");
+		fscanf(*fp, "\n");
 		LIS_AvancarElementoCorrente(casas, 1);
 	}
-	fread(&tamanho, 4, 1, fp);
+	fscanf(*fp, "%d", &tamanho);
+	fscanf(*fp, "\n");
 	for(i = 0; i < tamanho; i++)
 	{
 		BAR_AdicionarPeca(barb);
 	}
-	fread(&tamanho, 4, 1, fp);
+	fscanf(*fp, "%d", &tamanho);
+	fscanf(*fp, "\n");
 	for(i = 0; i < tamanho; i++)
 	{
 		PF_AdicionarPeca(pfb);
 	}
-	fread(&tamanho, 4, 1, fp);
+	fscanf(*fp, "%d", &tamanho);
+	fscanf(*fp, "\n");
 	for(i = 0; i < tamanho; i++)
 	{
 		BAR_AdicionarPeca(barp);
 	}
-	fread(&tamanho, 4, 1, fp);
+	fscanf(*fp, "%d", &tamanho);
+	fscanf(*fp, "\n");
 	for(i = 0; i < tamanho; i++)
 	{
 		PF_AdicionarPeca(pfp);
 	}
-	fread(&valorpartida, 4, 1, fp);
-	fread(&dono, 1, 1, fp);
+	fscanf(*fp, "%d", &valorpartida);
+	fscanf(*fp, "\n");
+	fscanf(*fp, "%c", &dono);
 	while(novovalor != valorpartida)
 	{
 		DADPnt_DobrarDado(dp, dono);
 		valorpartida*=2;
 	}
-	LIS_InserirElementoApos(*estrutura, tab);
-	LIS_InserirElementoApos(*estrutura, barb);
-	LIS_InserirElementoApos(*estrutura, pfb);
-	LIS_InserirElementoApos(*estrutura, barp);
-	LIS_InserirElementoApos(*estrutura, pfp);
-	LIS_InserirElementoApos(*estrutura, dp);
+	LIS_InserirElementoApos(estrutura, tab);
+	LIS_InserirElementoApos(estrutura, barb);
+	LIS_InserirElementoApos(estrutura, pfb);
+	LIS_InserirElementoApos(estrutura, barp);
+	LIS_InserirElementoApos(estrutura, pfp);
+	LIS_InserirElementoApos(estrutura, dp);
+	return estrutura;
 }
 
 

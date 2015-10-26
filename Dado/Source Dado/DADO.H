@@ -1,6 +1,6 @@
 /***************************************************************************
 *
-*  $MCD MÛdulo de definiÁ„o: MÛdulo Dado
+*  $MCD M√≥dulo de defini√ß√£o: M√≥dulo Dado
 *
 *  Arquivo gerado:              Dado.H
 *  Letras identificadoras:      DAD
@@ -9,17 +9,17 @@
 *
 *  Projeto: Disciplinas INF 1628 / 1301
 *  Gestor:  DI/PUC-Rio
-*  Autores:	fvc - Felipe Vieira CÙrtes
-*			tbm - T·ssio Borges de Miranda
-*			db  - Daniela Braz„o
+*  Autores:	fvc - Felipe Vieira C√¥rtes
+*			tbm - T√°ssio Borges de Miranda
+*			db  - Daniela Braz√£o
 *
-*  $HA HistÛrico de evoluÁ„o:
-*     Vers„o  Autor    Data     ObservaÁıes
-*       1.00   fvc   15/08/2001 InÌcio e tÈrmino do desenvolvimento
+*  $HA Hist√≥rico de evolu√ß√£o:
+*     Vers√£o  Autor    Data     Observa√ß√µes
+*       1.00   fvc   15/08/2001 In√≠cio e t√©rmino do desenvolvimento
 *
-*  $ED DescriÁ„o do mÛdulo
-*     Este mÛdulo implementa um conjunto simples de funÁıes para gerar o resultado
-*	  do dado "lanÁado".
+*  $ED Descri√ß√£o do m√≥dulo
+*     Este m√≥dulo implementa um conjunto simples de fun√ß√µes para gerar o resultado
+*	  do dado "lan√ßado".
 *
 ***************************************************************************/
  
@@ -33,7 +33,6 @@
 *
 *  $TC Tipo de dados: DAD Condicoes de retorno
 *
-*
 ***********************************************************************/
 
    typedef enum {
@@ -42,29 +41,37 @@
                /* Executou correto */
 
          DAD_CondRetErro = 1 ,
-               /* Estrutura do DadoPontos est· errada */
+               /* Estrutura do DadoPontos est√° errada */
 
          DAD_CondRetMatrizNaoExiste = 2 ,
-               /* DadoPontos n„o existe */
+               /* DadoPontos n√£o existe */
 
          DAD_CondRetFaltouMemoria = 3
-               /* Faltou memÛria ao alocar dados */
+               /* Faltou mem√≥ria ao alocar dados */
 
    } DAD_tpCondRet ;
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: DAD  &Gerar o numero de casas a serem puladas
+*  $FC Fun√ß√£o: DAD  &Gerar o numero de casas a serem puladas.
 *
-*  $ED DescriÁ„o da funÁ„o
-*	  Retorno o numero da casas a serem andadas
+*  $ED Descri√ß√£o da fun√ß√£o
+*	  Retorna o numero de casas a serem percorridas.
+* 
 *  $FV Valor retonado
-*     DAD_CondRetOK
-*     DAD_CondRetFaltouMemoria
+*     DAD_CondRetOK            - Gera numero aleatorio de casas a serem percorridas.
+*     DAD_CondRetFaltouMemoria - Numero aleatorio de casas a serem percorridas nao foi gerado por falta de memoria.
+* 
+*  $EAE Assertivas de Entrada
+*   Existe um ponteiro para o n√∫mero inteiro de casas a serem caminhadas que aponta para uma regiao desconhecida na memoria.
+* 
+*  $EAS Assertivas de Sa√≠da
+*   Caso nao haja memoria suficiente, √© retornada a condicao de retorno correspondente.
+* 
 ***********************************************************************/
 
 DAD_tpCondRet DAD_NumPular(int *NumeroCasas) ;
 
 #undef DADO_EXT
 
-/*************** Fim do mÛdulo de definiÁ„o: MÛdulo Dado ****************/
+/*************** Fim do m√≥dulo de defini√ß√£o: M√≥dulo Dado ****************/

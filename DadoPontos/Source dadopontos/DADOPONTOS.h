@@ -1,6 +1,6 @@
 /***************************************************************************
 *
-*  $MCD MÛdulo de definiÁ„o: MÛdulo Dado
+*  $MCD M√≥dulo de defini√ß√£o: M√≥dulo Dado
 *
 *  Arquivo gerado:              DadoPontos.H
 *  Letras identificadoras:      DADPnt
@@ -9,17 +9,17 @@
 *
 *  Projeto: Disciplinas INF 1628 / 1301
 *  Gestor:  DI/PUC-Rio
-*  Autores: fvc - Felipe Vieira CÙrtes
-*			tbm - T·ssio Borges de Miranda
-*			db  - Daniela Braz„o
+*  Autores: fvc - Felipe Vieira C√¥rtes
+*			tbm - T√°ssio Borges de Miranda
+*			db  - Daniela Braz√£o
 
 *
-*  $HA HistÛrico de evoluÁ„o:
-*     Vers„o  Autor    Data     ObservaÁıes
-*       1.00   tbm   05/09/2015 InÌcio do desenvolvimento
+*  $HA Hist√≥rico de evolu√ß√£o:
+*     Vers√£o  Autor    Data     Observa√ß√µes
+*       1.00   tbm   05/09/2015 In√≠cio do desenvolvimento
 *
-*  $ED DescriÁ„o do mÛdulo
-*     Este mÛdulo implementa um conjunto simples de funÁıes para verificar o
+*  $ED Descri√ß√£o do m√≥dulo
+*     Este m√≥dulo implementa um conjunto simples de fun√ß√µes para verificar o
 *	  valor atual da partida e qual jogador pode utilizar o dado.
 *
 ***************************************************************************/
@@ -38,7 +38,6 @@ typedef struct tgPlayers * tppPlayers;
 *
 *  $TC Tipo de dados: DADPnt Condicoes de retorno
 *
-*
 ***********************************************************************/
 
    typedef enum {
@@ -47,40 +46,57 @@ typedef struct tgPlayers * tppPlayers;
                /* Executou correto */
 
          DADPnt_CondRetErro = 1 ,
-               /* Estrutura do DadoPontos est· errada */
+               /* Estrutura do DadoPontos est√° errada */
 
          DADPnt_CondRetDadoPontosNaoExiste = 2 ,
-               /* DadoPontos n„o existe */
+               /* DadoPontos n√£o existe */
 
          DADPnt_CondRetFaltouMemoria = 3
-               /* Faltou memÛria ao alocar dados */
+               /* Faltou mem√≥ria ao alocar dados */
 
    } DADPnt_tpCondRet ;
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: DADPnt Criar Dado de Pontos
+*  $FC Fun√ß√£o: DADPnt &Criar Dado de Pontos
 *
-*  $ED DescriÁ„o da funÁ„o
-*	  Cria um novo dado de pontos
+*  $ED Descri√ß√£o da fun√ß√£o
+*	  Cria um novo dado de pontos.
+* 
 *  $FV Valor retonado
-*     DADPnt_CondRetOK
-*     DADPnt_CondRetFaltouMemoria
-*
+*     DADPnt_CondRetOK            - Dado de Pontos foi criado com sucesso.
+*     DADPnt_CondRetFaltouMemoria - Dado de Pontos n√£o foi criado por falta de mem√≥ria.
+* 
+* $EAE Assertivas de Entrada
+*  Existe um ponteiro para o Dado de Pontos criado que aponta para uma regi√£o desconhecida na mem√≥ria. 
+* 
+* $EAS Assertivas de Sa√≠da
+*  Caso tenha executado corretamente, √© criado um novo Dado de Pontos.
+*  Caso n√£o haja mem√≥ria suficiente, √© retornada a condi√ß√£o de retorno correspondente.
+* 
 ***********************************************************************/
 
 DADPnt_tpCondRet DADPnt_CriarDado(tppDadoPontos * DadoCriado);
 
 /***************************************************************************
 *
-*  $FC FunÁ„o: DADPnt Dobrar Dado de Pontos e Mudar "Dono" do Dado de Pontos
+*  $FC Fun√ß√£o: DADPnt &Dobrar Dado de Pontos e Mudar "Dono" do Dado de Pontos
 *
-*  $ED DescriÁ„o da funÁ„o
-*	  Dobra o valor da partida e Muda o jogador que possa usar o Dado de Pontos
+*  $ED Descri√ß√£o da fun√ß√£o
+*	  Dobra o valor da partida e Muda o jogador que pode usar o Dado de Pontos.
+* 
 *  $FV Valor retonado
-*     DADPnt_CondRetOK
-*     DADPnt_CondRetFaltouMemoria
+*     DADPnt_CondRetOK            - O valor da partida foi dobrado e o Dado de Pontos passou a pertencer ao jogador que dobrou a partida.
+*     DADPnt_CondRetFaltouMemoria - O valor da partida n√£o foi dobrado e o dono do Dado de Pontos n√£o mudou.
+* 
+* $EAE Assertivas de Entrada
+*  Existe uma vari√°vel do tipo tppDadoPontos que corresponde ao Dado de Pontos criado previamente.
+*  Existe uma vari√°vel na qual guarda-se o caractere que correponde ao novo dono do Dado de Pontos. 
+* 
+* $EAS Assertivas de Sa√≠da
+*  Caso tenha executado corretamente, o valor da partida armazenado no Dado de Pontos √© dobrado e o Dado de Pontos passa a pertencer ao jogador que realizou o redobre.
+*  Caso n√£o haja mem√≥ria suficiente, √© retornada a condi√ß√£o de retorno correspondente.
 *
 ***********************************************************************/
 
@@ -88,35 +104,49 @@ DADPnt_tpCondRet DADPnt_DobrarDado(tppDadoPontos DadoDobrar, char CorNovoDono);
 
 /***************************************************************************
 *
-*  $FC FunÁ„o: DADPnt Valor da partida
+*  $FC Fun√ß√£o: DADPnt Valor da partida
 *
-*  $ED DescriÁ„o da funÁ„o
-*	  Gera o valor atual da partida
+*  $ED Descri√ß√£o da fun√ß√£o
+*	  Gera o valor atual da partida.
+* 
 *  $FV Valor retonado
-*     DADPnt_CondRetOK
-*
+*     DADPnt_CondRetOK - Obteve o valor atual da partida.
+* 
+* $EAE Assertivas de Entrada
+*  Existe uma vari√°vel do tipo tppDadoPontos que corresponde ao Dado de Pontos.
+*  Existe um ponteiro para o n√∫mero inteiro correspondente ao valor da partida que aponta para uma regi√£o desconhecida na mem√≥ria. 
+* 
+* $EAE Assertivas de Sa√≠da
+*  O valor atual da partida √© atribu√≠do a *valorJogo.
+* 
 ***********************************************************************/
 
 DADPnt_tpCondRet DADPnt_ValorPartida(tppDadoPontos Dado, int * valorjogo);
 
 /***************************************************************************
 *
-*  $FC FunÁ„o: DADPnt Obter "Dono" do dado de pontos atual
+*  $FC Fun√ß√£o: DADPnt &Obter "Dono" do dado de pontos atual
 *
-*  $ED DescriÁ„o da funÁ„o
-*	  Retorno o dono do Dado
+*  $ED Descri√ß√£o da fun√ß√£o
+*	  Retorna o dono do Dado.
+* 
 *  $FV Valor retonado
-*     DADPnt_CondRetOK
+*     DADPnt_CondRetOK - Obteve o dono atual do Dado de Pontos.
 *
+* $EAE Assertivas de Entrada
+* 
+* $EAE Assertivas de Sa√≠da
+* 
+* 
 ***********************************************************************/
 
 DADPnt_tpCondRet DADPnt_ObterDono(tppDadoPontos Dado, char * corRecebida);
 
 /***************************************************************************
 *
-*  $FC FunÁ„o: DADPnt Destroi o Dado de Pontos
+*  $FC Fun√ß√£o: DADPnt Destroi o Dado de Pontos
 *
-*  $ED DescriÁ„o da funÁ„o
+*  $ED Descri√ß√£o da fun√ß√£o
 *	  Destroi o Dado de Pontos
 *  $FV Valor retonado
 *     DADPnt_CondRetOK
@@ -128,4 +158,4 @@ DADPnt_tpCondRet DADPnt_DestruirDado(tppDadoPontos Dado);
 
 #undef DADOPONTOS_EXT
 
-/*************** Fim do mÛdulo de definiÁ„o: MÛdulo DadoPontos ****************/
+/*************** Fim do m√≥dulo de defini√ß√£o: M√≥dulo DadoPontos ****************/

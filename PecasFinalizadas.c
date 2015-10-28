@@ -119,7 +119,7 @@ PF_tpCondRet PF_ObterTamanhoPF(PF_tppFinalizadas pPF, int *tam)
 *  Função: TAB  &Obter cor PF
 *  ****/
 
-PF_tpCondRet PF_ObterCorBar(PF_tppFinalizadas pPF, char *cor)
+PF_tpCondRet PF_ObterCor(PF_tppFinalizadas pPF, char *cor)
 {
 	if(cor == NULL)
 		return PF_CondRetErro;

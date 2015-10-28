@@ -17,7 +17,7 @@
 	void  displayJogo(LIS_tppLista estrutura);
 	LIS_tppLista carregaJogo(FILE** fp);
 	void salvarJogo(LIS_tppLista estrutura);
-	void finalizarPeca(TAB_tppTabuleiro *pTab, PF_tppFinalizadas *pPF, int dado);
+	void finalizarPeca(TAB_tppTabuleiro *pTab, PF_tppFinalizadas *pPF, int num);
 	/* Conta a quantidade de peças a partir da 'qtd'ultimas casas */	
 	int contaUltimasCasas(TAB_tppTabuleiro *pTab, char cor, int qtd);
 int main (void)
@@ -28,12 +28,12 @@ int main (void)
 	PF_tppFinalizadas pfbranca, pfpreta; // pecas finalizadas
 	BAR_tppCapturadas barbranca, barpreta; // pecas capturadas
 	LIS_tppLista casas, casa; // lista de casas auxiliar usada no jogo
-	int dado1, dado2, dado3, dado4; // dados da partida
+	int dado1, dado2; // dados da partida
 	tppDadoPontos dp;
 	int flag = 0;
 	char preto = 'p', branco = 'b';
-	int tampfb = 0, tampfp = 0, temp, tamanho, tambarb, tambarp, ultCasas; // tamanho da estrutura de pecas finalizadas, elas que determinam o termino do jogo
-	int casaEscolhida, opt[3] = {0,0,0}, contOpt = 0, i, j, k, opcao, opcaorestante;
+	int tampfb = 0, tampfp = 0,tamanho, tambarb, tambarp, ultCasas; // tamanho da estrutura de pecas finalizadas, elas que determinam o termino do jogo
+	int casaEscolhida, opt[3] = {0,0,0}, contOpt = 0, i, k = 0; opcao, opcaorestante;
 	void* aux;
 	char jogadordaVez, corObtida;
 	int resp;
@@ -403,7 +403,70 @@ ESCOLHAOPCAO4:
 		goto OPCAORESTANTE;
 		}
 DOBRADO:
-
+		ultCasas = contaUltimasCasas(&tabuleiro, jogadordaVez, 6);
+		if((ultCasas + QUESTION tampfb : tampfp) == 15)
+		{
+			// ve se pode finalizar
+			IrInicioLista(casas);
+			LIS_AvancarElementoCorrente(casas, QUESTION dado1 -1 : -dado1 + 1);
+			casa = (LIS_tppLista)LIS_ObterValor(casas);
+			aux = LIS_ObterValor(casa);
+			contOpt = 2;
+			if(aux != NULL)
+			{
+				Pec_ObterCor((tppPeca)aux, &corObtida);
+				if(corObtida == jogadordaVez)
+				{
+					opt[contOpt] = dado1;
+					contOpt++;
+				}
+			}
+			if((aux == NULL) || corObtida != jogadordaVez)
+			{
+				ultCasas = contaUltimasCasas(&tabuleiro, jogadordaVez, dado1);
+				if((ultCasas + QUESTION tampfb : tampfp) == 15)
+				{
+					while((aux == NULL) || corObtida != jogadordaVez)
+					{
+						LIS_AvancarElementoCorrente(casas, QUESTION 1 : -1);
+						casa = (LIS_tppLista)LIS_ObterValor(casas);
+						aux = LIS_ObterValor(casa);
+						k++;
+					}
+					opt[contOpt] = k;
+					contOpt++;
+				}
+			}
+			IrInicioLista(casas);
+			LIS_AvancarElementoCorrente(casas, QUESTION dado2 -1 : -dado2 + 1);
+			casa = (LIS_tppLista)LIS_ObterValor(casas);
+			aux = LIS_ObterValor(casa);
+			if(aux != NULL)
+			{
+				Pec_ObterCor((tppPeca)aux, &corObtida);
+				if(corObtida == jogadordaVez)
+				{
+					opt[contOpt] = dado2;
+					contOpt++;
+				}
+			}
+			if((aux == NULL) || corObtida != jogadordaVez)
+			{
+				ultCasas = contaUltimasCasas(&tabuleiro, jogadordaVez, dado2);
+				if((ultCasas + QUESTION tampfb : tampfp) == 15)
+				{
+					while((aux == NULL) || corObtida != jogadordaVez)
+					{
+						LIS_AvancarElementoCorrente(casas, QUESTION 1 : -1);
+						casa = (LIS_tppLista)LIS_ObterValor(casas);
+						aux = LIS_ObterValor(casa);
+						k++;
+					}
+					opt[contOpt] = k;
+					contOpt++;
+				}
+			}
+		}
 		printf("Escolha de qual casa deseja andar \n");
 ESCOLHADECASA:
 		scanf("%d", &casaEscolhida);
@@ -448,10 +511,6 @@ ESCOLHADECASA:
 		}
 		// a casa é valida
 		// agora é saber as opçoes que o jogador tem
-		ultCasas = contaUltimasCasas(&tabuleiro, QUESTION 'b' : 'p');
-		// obter o tamanho das pf ..
-		//..
-		//..
 		LIS_AvancarElementoCorrente(casas, QUESTION dado1 : -dado1); // avanca para a posicao dado1
 		casa = (LIS_tppLista)LIS_ObterValor(casas);
 		aux = LIS_ObterValor(casa);
@@ -1130,14 +1189,14 @@ LIS_tppLista carregaJogo(FILE** fp)
 	return estrutura;
 	fclose(*fp);
 }
-void finalizarPeca(TAB_tppTabuleiro *pTab, PF_tppFinalizadas *pPF, int dado)
+void finalizarPeca(TAB_tppTabuleiro *pTab, PF_tppFinalizadas *pPF, int num)
 {
 	LIS_tppLista casas, casa;
 	char corpf;
-	PF_ObterCor(*pPF, &corpf);
 	TAB_ObterCasas(*pTab, &casas);
+	PF_ObterCor(*pPF, &corpf);
 	(corpf == 'b')? IrInicioLista(casas) : IrFinalLista(casas);
-	LIS_AvancarElementoCorrente(casas,(corpf == 'b')? dado - 1 : -dado + 1);
+	LIS_AvancarElementoCorrente(casas,(corpf == 'b')? num - 1 : -num + 1);
 	casa = (LIS_tppLista)LIS_ObterValor(casas);
 	LIS_ExcluirElemento(casa);
 	PF_AdicionarPeca(*pPF);

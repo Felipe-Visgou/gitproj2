@@ -108,11 +108,6 @@ BAR_tpCondRet BAR_RemoverPeca(BAR_tppCapturadas pBAR)
 		printf("Erro ao excluir peca da lsita (BAR) \n");
 		return BAR_CondRetErro;
 	}
-<<<<<<< HEAD
-=======
-	pBAR->tamanho--;
-
->>>>>>> refs/remotes/Felipe-Visgou/master
 	return BAR_CondRetOK;
 }
 

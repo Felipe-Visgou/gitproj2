@@ -102,7 +102,7 @@ typedef struct PF_tagFinalizadas * PF_tppFinalizadas;
 *
 ***********************************************************************/
 
-   PF_tpCondRet PF_AdicionarPeca(PF_tppFinalizadas pPF) ;
+   PF_tpCondRet PF_AdicionarPecaPF(PF_tppFinalizadas pPF) ;
 
 /***********************************************************************
 *
@@ -141,7 +141,24 @@ typedef struct PF_tagFinalizadas * PF_tppFinalizadas;
 *
 ***********************************************************************/
 
-   PF_tpCondRet PF_ObterCor(PF_tppFinalizadas pPF, char *cor) ;
+   PF_tpCondRet PF_ObterCorPF(PF_tppFinalizadas pPF, char *cor) ;
+
+/***********************************************************************
+*
+*  $FC Função: PF Destruir PF
+*
+*  $ED Descrição da função
+*		Destroi a lista de peças finalizadas
+*
+*  $EP Parâmetros
+*	  pPF		    - A PF que se deseja destruir
+*  $FV Valor retornado
+*		PF_CondRetOk
+*		PF_CondRetErro
+*
+***********************************************************************/
+
+   PF_tpCondRet PF_DestruirPF(PF_tppFinalizadas pPF) ;
 
 #undef PF_EXT
 

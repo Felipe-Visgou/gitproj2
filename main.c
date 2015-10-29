@@ -33,10 +33,11 @@ int main (void)
 	int flag = 0;
 	char preto = 'p', branco = 'b';
 	int tampfb = 0, tampfp = 0,tamanho, tambarb, tambarp, ultCasas; // tamanho da estrutura de pecas finalizadas, elas que determinam o termino do jogo
-	int casaEscolhida, opt[3] = {0,0,0}, contOpt = 0, i, k = 0; opcao, opcaorestante;
+	int casaEscolhida, opt[3] = {0,0,0}, contOpt = 0, i, k = 0, opcao, opcaorestante;
 	void* aux;
 	char jogadordaVez, corObtida;
-	int resp;
+	int resp, temp = 0;
+	char vencedor;
 	FILE* fp;
 	tppPeca pecaAux;
 	// Criar criar as estruturas e adicionalas na principal
@@ -83,6 +84,7 @@ int main (void)
 		dp = (tppDadoPontos)LIS_ObterValor(Principal);
 		goto JOGARDADO;
 	}
+CONTINUARJOGO:
 	TAB_CriarTabuleiro(&tabuleiro, DestruirValor);
 	PF_CriarPF(&pfbranca, branco, DestruirValor);
 	PF_CriarPF(&pfpreta, preto, DestruirValor);
@@ -118,7 +120,7 @@ JOGARDADO:
 	// se os dois valores forem iguais
 	if(dado1 == dado2) goto JOGARDADO;
 	// Dado1 corresponde ao jogador branco e dado2 corresponde ao jogador preto
-	jogadordaVez = (dado1 > dado2)? 'b':'p';
+	jogadordaVez = (dado1 > dado2)? 'b':'b';
 	while(tampfp < 15  ||  tampfb < 15)
 	{
 LABEL1:
@@ -402,16 +404,18 @@ ESCOLHAOPCAO4:
 			}
 		goto OPCAORESTANTE;
 		}
+		// fim BAR
 DOBRADO:
+		// finalizar peças
 		ultCasas = contaUltimasCasas(&tabuleiro, jogadordaVez, 6);
-		if((ultCasas + QUESTION tampfb : tampfp) == 15)
+		if((QUESTION ultCasas +  tampfb : ultCasas + tampfp) == 15)
 		{
 			// ve se pode finalizar
-			IrInicioLista(casas);
-			LIS_AvancarElementoCorrente(casas, QUESTION dado1 -1 : -dado1 + 1);
+			QUESTION IrFinalLista(casas) : IrInicioLista(casas);
+			LIS_AvancarElementoCorrente(casas, QUESTION -dado1 + 1 : dado1 -1);
 			casa = (LIS_tppLista)LIS_ObterValor(casas);
 			aux = LIS_ObterValor(casa);
-			contOpt = 2;
+			contOpt = 0;
 			if(aux != NULL)
 			{
 				Pec_ObterCor((tppPeca)aux, &corObtida);
@@ -437,8 +441,8 @@ DOBRADO:
 					contOpt++;
 				}
 			}
-			IrInicioLista(casas);
-			LIS_AvancarElementoCorrente(casas, QUESTION dado2 -1 : -dado2 + 1);
+			QUESTION IrFinalLista(casas) : IrInicioLista(casas);
+			LIS_AvancarElementoCorrente(casas, QUESTION -dado2 + 1 : dado2 -1);
 			casa = (LIS_tppLista)LIS_ObterValor(casas);
 			aux = LIS_ObterValor(casa);
 			if(aux != NULL)
@@ -467,6 +471,73 @@ DOBRADO:
 				}
 			}
 		}
+		if(opt[0] == 0)
+			goto LABEL2;
+		// Se existirem peças para finalizar, então finaliza-las-ei
+		for( i = 0; opt[i] != 0; i++)
+		{
+			if(opt[i] == 0) continue;
+			printf("%d : Finalizar peca da casa %d \n", i + 1, QUESTION 25 - opt[i] : opt[i]);
+		}
+FINALIZAOPCAO:
+		scanf("%d", &opcao);
+		if(opcao > 2)
+		{
+			printf("opcao invalida, digite novamente \n");
+			goto FINALIZAOPCAO;
+		}
+		finalizarPeca(&tabuleiro, QUESTION &pfbranca : &pfpreta, QUESTION opt[opcao-1] : 25 - opt[opcao-1]);
+		temp = opt[opcao -1];
+		opt[opcao-1]  = 0;
+
+		for( i = 0; i < 3; i++)
+		{
+			if(opt[i] != 0)
+			{
+				opcaorestante = opt[i];
+				break;
+			}
+			opcaorestante = 0;
+		}
+		if(opcaorestante != 0)
+		{
+			printf("1 : Finalizar peca da casa %d \n",  QUESTION opcaorestante : 25 - opcaorestante);
+FINALIZAOPCAO1:
+			scanf("%d", &opcao);
+			if(opcao > 2)
+			{
+				printf("opcao invalida, digite novamente \n");
+				goto FINALIZAOPCAO1;
+			}
+			finalizarPeca(&tabuleiro, QUESTION &pfbranca : &pfpreta, QUESTION opcaorestante : 25 - opcaorestante );
+			if(DAD_NumPular(&dado1) != DAD_CondRetOK)
+			{
+				printf("Erro ao jogar o dado (main) \n");
+				return 0;
+			}
+			Sleep(1);
+			if(DAD_NumPular(&dado2) != DAD_CondRetOK)
+			{
+				printf("Erro ao jogar o dado (main) \n");
+				return 0;
+			}
+			jogadordaVez = QUESTION 'p' : 'b';
+			contOpt = 0;
+			for(i = 0; i < 3; i++)
+				opt[i] = 0;
+			PF_ObterTamanhoPF(pfbranca, &tampfb);
+			PF_ObterTamanhoPF(pfpreta, &tampfp);
+			displayJogo(Principal);
+			goto LABEL1;
+		}
+		// n tem mais opcoes quem é a opcao restante?
+		if(temp == dado1) opcaorestante = dado2;
+		if(dado1 < k) opcaorestante = dado2;
+		else opcaorestante = dado1;
+		goto ESCOLHADECASA1;
+
+
+LABEL2:
 		printf("Escolha de qual casa deseja andar \n");
 ESCOLHADECASA:
 		scanf("%d", &casaEscolhida);
@@ -567,16 +638,20 @@ ESCOLHADECASA:
 				}
 			}
 		}
-		// o bizu está aqui,... para finalziar as peças
 		for(i = 0; i < 3; i++)
 		{
 			if(((jogadordaVez == 'b') && (opt[i] + casaEscolhida  > 24)) || ((casaEscolhida - opt[i] < 1) && (jogadordaVez == 'p')))
 				opt[i] = 0;
 		}
-		if(opt[0] == 0)
+		if((opt[0] == 0) && (opt[1] == 0))
 		{
 			printf("Nao ha opcoes, escolha outra casa \n");
 			goto ESCOLHADECASA;
+		}
+		if((opt[0] == 0) && (opt[1] != 0))
+		{
+			opt[0] = opt[1];
+			opt[1] = 0;
 		}
 		for(i = 0; opt[i] != 0; i++)
 		{
@@ -802,6 +877,23 @@ ESCOLHAOPCAO2:
 		PF_ObterTamanhoPF(pfbranca, &tampfb);
 		PF_ObterTamanhoPF(pfpreta, &tampfp);
 	}
+	if(tampfb == 15) vencedor = 'b';
+	else vencedor = 'p';
+	printf("PARABENS!! O JOGADOR %s VENCEU!! \n", (vencedor == 'b')? "branco" :  "preto");
+	printf("1 : Continuar Jogo \n 2 : Sair \n");
+	scanf("%d", &opcao);
+	// excluir tudo
+	// destruir bar
+	Bar_DestruirBar(barbranca);
+	Bar_DestruirBar(barpreta);
+	// destruir pf
+	PF_DestruirPF(pfbranca);
+	PF_DestruirPF(pfpreta);
+	// destruir tabuleiro
+	TAB_DestruirTabuleiro(tabuleiro);
+	// destruir dado pontos
+	DADPnt_DestruirDado(dp);
+
 
 
 }
@@ -990,9 +1082,9 @@ void  displayJogo(LIS_tppLista estrutura)
 	DADPnt_ValorPartida(dp, &valorpartida);
 	DADPnt_ObterDono(dp, &dono);
 	PF_ObterTamanhoPF(pfp, &tampfp);
-	printf("\nValor da partida : %d        Pecas pretas finalizadas : %d \n", valorpartida, tamanho);
+	printf("\nValor da partida : %d        Pecas pretas finalizadas : %d \n", valorpartida, tampfp);
 	PF_ObterTamanhoPF(pfb, &tampfb);
-	printf("\nDono do DadoPontos : %c      Pecas brancas finalizadas : %d \n", dono, tamanho);
+	printf("\nDono do DadoPontos : %c      Pecas brancas finalizadas : %d \n", dono, tampfb);
 }
 void DestruirValor( void * pValor )
 {
@@ -1158,7 +1250,7 @@ LIS_tppLista carregaJogo(FILE** fp)
 	fscanf(*fp, "\n");
 	for(i = 0; i < tamanho; i++)
 	{
-		PF_AdicionarPeca(pfb);
+		PF_AdicionarPecaPF(pfb);
 	}
 	fscanf(*fp, "%d", &tamanho);
 	fscanf(*fp, "\n");
@@ -1170,7 +1262,7 @@ LIS_tppLista carregaJogo(FILE** fp)
 	fscanf(*fp, "\n");
 	for(i = 0; i < tamanho; i++)
 	{
-		PF_AdicionarPeca(pfp);
+		PF_AdicionarPecaPF(pfp);
 	}
 	fscanf(*fp, "%d", &valorpartida);
 	fscanf(*fp, "\n");
@@ -1194,24 +1286,24 @@ void finalizarPeca(TAB_tppTabuleiro *pTab, PF_tppFinalizadas *pPF, int num)
 	LIS_tppLista casas, casa;
 	char corpf;
 	TAB_ObterCasas(*pTab, &casas);
-	PF_ObterCor(*pPF, &corpf);
-	(corpf == 'b')? IrInicioLista(casas) : IrFinalLista(casas);
-	LIS_AvancarElementoCorrente(casas,(corpf == 'b')? num - 1 : -num + 1);
+	PF_ObterCorPF(*pPF, &corpf);
+	(corpf == 'b')? IrFinalLista(casas) : IrInicioLista(casas);
+	LIS_AvancarElementoCorrente(casas,(corpf == 'b')? -num +1 : num - 1);
 	casa = (LIS_tppLista)LIS_ObterValor(casas);
 	LIS_ExcluirElemento(casa);
-	PF_AdicionarPeca(*pPF);
+	PF_AdicionarPecaPF(*pPF);
 }
 int contaUltimasCasas(TAB_tppTabuleiro *pTab, char cor, int qtd)
 {
 	int cont = 0, i;
 	LIS_tppLista casa, casas;
 	TAB_ObterCasas(*pTab, &casas);
-	(cor == 'b')? IrInicioLista(casas) : IrFinalLista(casas);
+	(cor == 'b')? IrFinalLista(casas) : IrInicioLista(casas);
 	for(i = 0; i < qtd; i++)
 	{
 		casa = (LIS_tppLista)LIS_ObterValor(casas);
 		cont += LIS_ObterTamanho(casa);
-		LIS_AvancarElementoCorrente(casas, (cor == 'b')? 1:-1);
+		LIS_AvancarElementoCorrente(casas, (cor == 'b')? -1:1);
 	}
 	return cont;
 }

@@ -21,8 +21,9 @@
 #include   <stdio.h>
 #include   <string.h>
 #include   <malloc.h>
-#include "LISTA.h"
-#include "PECA.h"
+#include	"LISTA.h"
+#include	"PECA.h"
+
 #define PF_OWN
 #include "PecasFinalizadas.h"
 #undef PF_OWN
@@ -52,7 +53,7 @@ typedef struct PF_tagFinalizadas {
 
 /***************************************************************************
 *
-*  Função: TAB  &Criar PF
+*  Função: PF &Criar PF
 *  ****/
 
 PF_tpCondRet PF_CriarPF(PF_tppFinalizadas *pPF, char cor,
@@ -73,10 +74,10 @@ PF_tpCondRet PF_CriarPF(PF_tppFinalizadas *pPF, char cor,
 
 /***************************************************************************
 *
-*  Função: TAB  &Adicionar Peça
+*  Função: PF  &Adicionar Peça
 *  ****/
 
-PF_tpCondRet PF_AdicionarPeca(PF_tppFinalizadas pPF)
+PF_tpCondRet PF_AdicionarPecaPF(PF_tppFinalizadas pPF)
 {
 	char cor = pPF->cor;
 	tppPeca newPeca;
@@ -98,7 +99,7 @@ PF_tpCondRet PF_AdicionarPeca(PF_tppFinalizadas pPF)
 
 /***************************************************************************
 *
-*  Função: TAB  &Obter Tamanho PF
+*  Função: PF  &Obter Tamanho PF
 *  ****/
 
 PF_tpCondRet PF_ObterTamanhoPF(PF_tppFinalizadas pPF, int *tam)
@@ -116,10 +117,10 @@ PF_tpCondRet PF_ObterTamanhoPF(PF_tppFinalizadas pPF, int *tam)
 
 /***************************************************************************
 *
-*  Função: TAB  &Obter cor PF
+*  Função: PF  &Obter cor PF
 *  ****/
 
-PF_tpCondRet PF_ObterCor(PF_tppFinalizadas pPF, char *cor)
+PF_tpCondRet PF_ObterCorPF(PF_tppFinalizadas pPF, char *cor)
 {
 	if(cor == NULL)
 		return PF_CondRetErro;
@@ -128,5 +129,18 @@ PF_tpCondRet PF_ObterCor(PF_tppFinalizadas pPF, char *cor)
 
 	return PF_CondRetOK;
 }
+
+/***************************************************************************
+*
+*  Função: PF  &Destruir PF
+*  ****/
+
+PF_tpCondRet PF_DestruirPF(PF_tppFinalizadas pPF)
+{
+	LIS_DestruirLista(pPF->ListaFinalizadas);
+	free(pPF);
+	return PF_CondRetOK;
+}
+
 
 /******** Fim do Módulo de Implementação: PF Lista de Peças Finalizadas *************/

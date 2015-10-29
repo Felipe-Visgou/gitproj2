@@ -1,0 +1,29 @@
+// Script:    TesteLista.script
+// Autor:     Arndt von Staa, Tassio Miranda
+// Data:      23/10/2015
+//
+
+==Criar Peças Finalizadas  Branco
+=criarpf	1	'b'	0
+
+==Criar Peças Finalizadas  Preto	
+=criarpf	2	'p'	0
+
+==Obter Cor do Peças Finalizadas Branco
+=obtercorpf	1	'b'	0
+
+==Obter Cor do Peças Finalizadas Preto
+=obtercorpf	2	'p'	0
+
+==Aumentar o Peças Finalizadas Branco em 2 peças
+=addpf			1	0
+=addpf			1	0
+
+==Obter Tamaho do Peças Finalizadas Branco com 2 pecas
+=obtertamanhopf	1	2	0
+
+==Destruir Peças Finalizadas Branco
+=destruirpf		1	0
+
+==Destruir Peças Finalizadas Preto
+=destruirpf		2	0

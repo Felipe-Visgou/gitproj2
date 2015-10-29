@@ -156,7 +156,7 @@ LABEL1:
 	//	dado1 = 2; dado2 = 2;
 		displayJogo(Principal);
 		printf("Jogador da vez eh o %s \n", QUESTION "Branco" : "Preto");
-		dado1 = 6; dado2 = 4;
+	//	dado1 = 5; dado2 = 4;
 		if(dado1 == dado2)
 		{
 			cd = 4;
@@ -487,6 +487,7 @@ DOBRADO:
 				scanf("%d", &opcao);
 				finalizarPeca(&tabuleiro, QUESTION &pfbranca : &pfpreta, opt[opcao-1]);
 				cd--;
+				dado1 = 0;
 				if(cd == 0)
 					goto PROCEDIMENTO;
 				PF_ObterTamanhoPF(pfbranca, &tampfb);
@@ -680,6 +681,7 @@ ESCOLHADECASA:
 		}
 		// a casa é valida
 		// agora é saber as opçoes que o jogador tem
+		if(dado1 == 0) goto CONTINUADADO2;
 		LIS_AvancarElementoCorrente(casas, QUESTION dado1 : -dado1); // avanca para a posicao dado1
 		casa = (LIS_tppLista)LIS_ObterValor(casas);
 		aux = LIS_ObterValor(casa);
@@ -708,6 +710,8 @@ ESCOLHADECASA:
 				}
 			}
 		}
+CONTINUADADO2:
+		// tem q vir pra ca
 		IrInicioLista(casas);
 		LIS_AvancarElementoCorrente(casas, casaEscolhida -1);
 		LIS_AvancarElementoCorrente(casas,QUESTION dado2 : -dado2); // avanca para a posicao dado2
@@ -750,8 +754,9 @@ ESCOLHADECASA:
 			qtdcasas = contaqtdcasas(&tabuleiro, QUESTION 'b' : 'p');
 			if(ultCasas == 15)
 				goto PROCEDIMENTO;
-			printf("Nao ha opcoes, escolha outra casa \n");
+			printf("Nao ha opcoes, escolha outra casa (Persista, TENTE TODAS AS CASAS!)\n");
 			qtdtentativas++;
+			if(qtdtentativas > qtdcasas) qtdtentativas = 0;
 			if(qtdtentativas == qtdcasas)
 			{
 				printf("Passando a vez \n");
@@ -929,6 +934,7 @@ PECANULL2:
 		}
 		// a casa é valida basta mover mostar a opcao e mover a peca
 		//calcular as opçoes novamente
+CONTINUA:
 		LIS_AvancarElementoCorrente(casas, QUESTION opcaorestante : -opcaorestante);
 		casa = (LIS_tppLista)LIS_ObterValor(casas);
 		aux = LIS_ObterValor(casa);
@@ -963,13 +969,13 @@ PECANULL2:
 			if(((jogadordaVez == 'b') && (opcaorestante + casaEscolhida  > 24)) || ((casaEscolhida - opcaorestante < 1) && (jogadordaVez == 'p')))
 				opcaorestante = 0;
 		}
-		if(opcaorestante == 0)
+		if((opt[0] == 0) && (opt[1] == 0))
 		{
 			ultCasas = contaUltimasCasas(&tabuleiro, QUESTION 'b' : 'p', QUESTION 25 - casaEscolhida : casaEscolhida);
 			qtdcasas = contaqtdcasas(&tabuleiro, QUESTION 'b' : 'p');
 			if(ultCasas == 15)
 				goto PROCEDIMENTO;
-			printf("Nao ha opcoes, escolha outra casa \n");
+			printf("Nao ha opcoes, escolha outra casa (Persista, TENTE TODAS AS CASAS!)\n");
 			qtdtentativas++;
 			if(qtdtentativas == qtdcasas)
 			{
@@ -1276,7 +1282,6 @@ void DestruirValor( void * pValor )
 
       free( pValor ) ;
 }
-
 void salvarJogo(LIS_tppLista estrutura)
 {
 	TAB_tppTabuleiro tab; // tabuleiro

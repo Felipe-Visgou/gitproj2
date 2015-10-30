@@ -1,0 +1,8 @@
+Data	 			Horas Trabalhadas		 Tipo Tarefa	     							Descrição da Tarefa Realizada
+
+14/09					2h		Especificar os módulos/ especificar as funções      				Desenhando o modelo estrutural do programa e definindo sua melhor arquitetura
+16/09					2h		Projetar/espicicar as funções							Definido como serão as estruturas dos Módulos Peça e Dado Pontos e suas funções de acesso
+21/09					2h		Codificar/Revisar especificações						Campos da peça retirados sobrando somente a cor dela, codificando teste para o módulo de dados, criando uma função que gera números aleatórios	
+23/09					2h		Redigir Scripts de teste/revisar código do módulo				Códigos alterados para criar scripts de teste mais fáceis de usar
+24/09					3h		codificar/Redigir script de teste/realizar testes/revisar script de teste	Teste Dado Pontos, Teste de peça, teste de dado e teste de tabuleiro funcionando sem erros. Realizando as mudanças adequadas em cada módulo
+25/09					3h		Redigir script de teste/ revisar codigo do módulo/revisar script de teste	Todos os módulos testados, acrescentando alguns comandos a mais para um teste mais completo.

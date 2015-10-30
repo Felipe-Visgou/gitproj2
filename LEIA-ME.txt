@@ -1,0 +1,67 @@
+INF1301 - Trabalho 3
+
+Esta pasta contém: - Os relatórios de cada integrante do grupo.
+		   - O pdf INF1301_Manual que possui o script de teste manual e um manual de usuário para a
+		     utilização da aplicação do gamão.
+
+Pasta Jogo: Contém o executável da aplicação do Gamão e todos os arquivos usados em sua concepção.
+	-TRAB3-1.exe
+
+Pasta Tabuleiro : Contém um script de teste para o módulo de tabuleiro de gamão
+sem as regras implementadas, um executável gerado a partir do conteúdo da pasta source,
+um arquivo .bat que executa o teste gerando um log de saída.
+	-TRAB3-7.exe
+	-testetabuleiroscript.script
+	-testetabuleiro.bat
+	-logsaidatabuleiro.txt
+Pasta source tabuleiro : Contém os arquivos fonte usados para a geração do executável listado anteriormente
+
+Pasta peca : Contém um script de teste para o módulo de peça que representa peças do jogo de gamão,
+ um executável gerado a partir do conteúdo da pasta source peca, um arquivo .bat que executa o teste
+ gerando um log de saída.
+	-TAB3-2.exe
+	-testepecascript.script
+	-testepeca.bat
+	-logtestepeca.txt
+Pasta source peca : Contém os arquivos fonte usados para a geração do executável listado anteriormente
+
+Pasta DadoPontos :  Contém um script de teste para o módulo de dado pontos, que representa o dado
+ de dobrar os pontos com as faces 2, 4, 8, 16, 32, 64 do jogo de gamão, um arquivo executável gerado
+a partir do conteúdo da pasta source dadopontos e um arquivo .bat que realiza o teste gerando um log de saída.
+	-TAB3-3.exe
+	-testeDadoPontos.script
+	-testeDadoPontos.bat
+	-logtesteDadosPonto.txt 
+Pasta source dadopontos : Contém os arquivos fonte usados para a geração do executável lista anteriormente
+
+Pasta Dado: Contém um script de teste para o módulo de dado que simula um dado de 6 faces sendo jogado,
+um arquivo executável gerado pelo conteúdo da pasta source dado, um arquivo .bat que executa todo o teste
+gerando um log de saída.
+	-TRAB3-6.exe
+	-testeadodoscript.script
+	-testedado.bat
+	-logtestedado.txt
+Pasta Source Dado : Contém todos os arquivos necessários para a geração do executável dito anteriormente
+
+Pasta Pecas-Finalizadas: Contém um script de teste para o módulo de peças finalizadas de gamão, um arquivo
+executável gerado pelo conteúdo da pasta sourcePF, um arquivo .bat que executa o teste gerando um log de saída
+	-TRAB3-5.exe
+	-logsaidapf.txt
+	-pecasfinalizadas.script
+	-testepecasfinalizadas.bat
+Pasta sourcePF Contém os arquivos fonte usados para a geração do executável lista anteriormente
+
+Pasta BAR: Contém um script de teste para o módulo de peças capturadas(BAR) de gamão, um arquivo
+executável gerado pelo conteúdo da pasta sourceBAR, um arquivo .bat que executa o teste gerando um log de saída
+	-Bar.script
+	-logsaidabar.txt
+	-testebar.bat
+	-TRAB3-4.exe
+Pasta sourceBAR Contém todos os arquivos necessários para a geração do executável dito anteriormente
+----------------------- COMO USAR -----------------------------------
+Para testar cada módulo basta clicar duas vezes no arquivo em lotes (.bat) referente ao módulo. 
+Será gerado um log contendo as informações do teste realizado.
+
+Para rodar a aplicação do gamão basta clicar duas vezes em TRAB3-1.exe (leia o manual)
+
+OBS.: Os arquivos .lib, .bat e .exe estão no formato .txt. Para realizar os teste é necessário renomea-los

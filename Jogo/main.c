@@ -36,7 +36,7 @@ int main (void)
 	int tampfb = 0, tampfp = 0,tamanho, tambarb, tambarp, ultCasas; // tamanho da estrutura de pecas finalizadas, elas que determinam o termino do jogo
 	int casaEscolhida, opt[3] = {0,0,0}, contOpt = 0, i, k = 0, opcao, opcaorestante;
 	void* aux;
-	char jogadordaVez, corObtida;
+	char jogadordaVez, corObtida, dono;
 	int resp, temp = 0, contafinalizar = 0;
 	char vencedor;
 	FILE* fp;
@@ -130,11 +130,14 @@ LABEL1:
 		for(i = 0; i < 3; i++) opt[i] = 0;
 		printf("Jogador da vez eh o %s \n", QUESTION "Branco" : "Preto");
 		printf("1: Jogar dados \n0: Salvar e Sair \n");
-		printf("2: Dobrar dado \n");
+		DADPnt_ObterDono(dp, &dono);
+		if(jogadordaVez == dono || dono == 's')
+			printf("2: Dobrar dado \n");
 		contafinalizar = 0;
 		flag = 0;
 		qtdcasas = 0;
 		qtdtentativas = 0;
+LABEL3:
 		scanf("%d", &resp);
 		if(resp == 0)
 		{
@@ -143,10 +146,15 @@ LABEL1:
 			Sleep(2);
 			return 0;
 		}
-		if(resp == 2)
+		if(resp == 2 && (jogadordaVez == dono || dono == 's'))
 		{
-			DADPnt_DobrarDado(dp,jogadordaVez);
+			DADPnt_DobrarDado(dp,QUESTION 'p' : 'b');
 			DADPnt_ValorPartida(dp,&vpartida);
+		}
+		else
+		{
+			printf("voce nao pode dobrar \n");
+			goto LABEL3;
 		}
 		if(resp > 2)
 		{

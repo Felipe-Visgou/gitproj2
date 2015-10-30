@@ -1,0 +1,1 @@
+TRAB3-4 /sBar > logsaidabar.txt

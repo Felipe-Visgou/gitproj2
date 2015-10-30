@@ -4,7 +4,7 @@ LES - Laboratório de Engenharia de Software DI/PUC-Rio
       Arcabouço de teste de módulos C  (c) 2006
 
 ---------------------------------------------
-      Construto sob teste: TRAB2-2
+      Construto sob teste: TRAB3-2
 
       Arquivo de teste:    testepecascript
 

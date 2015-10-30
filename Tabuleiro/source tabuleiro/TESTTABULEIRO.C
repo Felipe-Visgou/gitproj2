@@ -25,9 +25,10 @@
 *  $EIU Interface com o usuário pessoa
 *     Comandos de teste específicos para testar o módulo Matriz:
 *
-*     =criartabuleiro		<CondRet>		- Chama a função    TAB_tpCondRet TAB_CriarTabuleiro(TAB_tppTabuleiro * pTab, void   ( * ExcluirValor ) ( void * pDado ) ) ;
-*	  =destruirtabuleiro	<CondRet>		- Chama a função  TAB_tpCondRet TAB_DestruirTabuleiro( TAB_tppTabuleiro pTab );
-*     =moverpeca			<casaOrig> <CasaDest>	<CondRet>	 - Chama a função TAB_tpCondRet TAB_MoverPeca( TAB_tppTabuleiro pTab, int casaOrigem, int casaDestino ) ;
+*     =criartabuleiro			<inxpec>	<CondRet>					- Chama a função TAB_tpCondRet TAB_CriarTabuleiro(TAB_tppTabuleiro * pTab,void   ( * ExcluirValor ) ( void * pDado ) ) ;
+*	  =destruirtabuleiro		<inxpec>	<CondRet>					- Chama a função TAB_tpCondRet TAB_DestruirTabuleiro( TAB_tppTabuleiro pTab ) ;
+*     =moverpecatabuleiro		<inxpec>	<iOrigem> <iDest> <CondRet>	- Chama a função TAB_tpCondRet TAB_MoverPeca( TAB_tppTabuleiro pTab, int casaOrigem, int casaDestino ) ;
+*	  =obtercasatabuleiro		<inxpec>	<inxcasatab> <CondRet>		- Chama a função TAB_tpCondRet TAB_ObterCasas(TAB_tppTabuleiro pTab, LIS_tppLista *casas) ;
 ***************************************************************************/
 
 #include    <string.h>
@@ -35,6 +36,7 @@
 #include    <malloc.h>
 #include    "TST_ESPC.H"
 #include    "GENERICO.h"
+#include	"LISTA.H"
 #include    "lerparm.h"
 
 #include	"TABULEIRO.H"
@@ -43,6 +45,7 @@
 #define     CRIAR_TABULEIRO_CMD			"=criartabuleiro"
 #define     DESTRUIR_TABULEIRO_CMD      "=destruirtabuleiro"
 #define     MOVER_PECA_CMD				"=moverpeca"
+#define		OBTER_CASA_CMD				"=obtercasatab"
 
 TAB_tppTabuleiro Tab;
 
@@ -83,6 +86,8 @@ TAB_tppTabuleiro Tab;
       int  NumLidos = -1 ;
 	  int i = 0;
 	  int PosicaoReferencia, PosicaoFinal;
+
+	  LIS_tppLista Casa;
 	
       /* Testar  Criar Tabuleiro */
          if ( strcmp( ComandoTeste , CRIAR_TABULEIRO_CMD ) == 0 )
@@ -124,8 +129,7 @@ TAB_tppTabuleiro Tab;
 		 else	if ( strcmp( ComandoTeste , MOVER_PECA_CMD ) == 0 )
          {
 
-			NumLidos = LER_LerParametros( "iii" ,
-                             &PosicaoReferencia,&PosicaoFinal , &CondRetEsperada ) ;
+			NumLidos = LER_LerParametros( "iii" , &PosicaoReferencia,&PosicaoFinal , &CondRetEsperada ) ;
             if ( NumLidos != 3)
             {
                return TST_CondRetParm ;
@@ -136,6 +140,24 @@ TAB_tppTabuleiro Tab;
 			return TST_CompararInt(CondRetObtido, CondRetEsperada, "Retorno errado ao mover a peca");
 
          } /* fim ativa: Testar  Tabuleiro Mover Peca */
+		 /* Testar Tabuleiro Obter Casa*/
+		 else	if ( strcmp( ComandoTeste , OBTER_CASA_CMD ) == 0 )
+         {
+
+			NumLidos = LER_LerParametros( "ii" ,&PosicaoReferencia , &CondRetEsperada ) ;
+            if ( NumLidos != 2)
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+
+			CondRetObtido = TAB_ObterCasas(Tab,&Casa) ;
+
+			return TST_CompararInt(CondRetObtido, CondRetEsperada, "Retorno errado ao mover a peca");
+
+         } /* fim ativa: Testar  Tabuleiro Mover Peca */
+
+
       return TST_CondRetNaoConhec ;
 
    } /* Fim função: Tab Efetuar operações de teste específicas para Tabuleiro */

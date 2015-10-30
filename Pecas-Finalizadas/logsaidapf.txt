@@ -1,0 +1,35 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: TRAB3-5
+
+      Arquivo de teste:    pecasfinalizadas
+
+
+!!!    0  Linha:     1  // Script:    TesteLista.script 
+!!!    0  Linha:     2  // Autor:     Arndt von Staa, Tassio Miranda 
+!!!    0  Linha:     3  // Data:      23/10/2015 
+!!!    0  Linha:     4  // 
+    6  ==Criar PeÃ§as Finalizadas  Branco
+    9  ==Criar PeÃ§as Finalizadas  Preto
+   12  ==Obter Cor do PeÃ§as Finalizadas Branco
+   15  ==Obter Cor do PeÃ§as Finalizadas Preto
+   18  ==Aumentar o PeÃ§as Finalizadas Branco em 6 pecas
+   26  ==Obter Tamaho do PeÃ§as Finalizadas Branco com 6 pecas
+   29  ==Aumetar o peÃ§as finalizadas Preto em duas pecas
+   33  ==Obter Tamaho do PeÃ§as Finalizadas Preto com 2 pecas
+   36  ==Destruir PeÃ§as Finalizadas Branco
+   39  ==Destruir PeÃ§as Finalizadas Preto
+
+!!! Número de linhas lidas:          40
+!!! Número de casos de teste:        10
+!!! Número comandos corretos:        16
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

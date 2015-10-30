@@ -1,1 +1,1 @@
-TRAB2-4 /stestedadoscript > logtestedado.txt
+TRAB3-6 /stestedadoscript > logtestedado.txt

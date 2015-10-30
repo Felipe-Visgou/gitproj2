@@ -1,0 +1,1 @@
+TRAB3-5 /specasfinalizadas > logsaidapf.txt

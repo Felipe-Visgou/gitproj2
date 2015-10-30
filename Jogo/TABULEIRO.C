@@ -27,7 +27,6 @@
 
 #define TABULEIRO_OWN
 #include "LISTA.H"
-#include "GENERICO.H"
 #include "PECA.h"
 #include "TABULEIRO.H"
 
@@ -201,10 +200,6 @@ TAB_tpCondRet TAB_MoverPeca( TAB_tppTabuleiro pTab, int casaOrigem, int casaDest
 	return TAB_CondRetOK;
 }
 
-/***************************************************************************
-*
-*  Função: TAB  &Obter Casas tabuleiro
-*  ****/
 TAB_tpCondRet TAB_ObterCasas(TAB_tppTabuleiro pTab, LIS_tppLista *casas)
 {
 	*casas = pTab->Casas;

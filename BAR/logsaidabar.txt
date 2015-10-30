@@ -1,0 +1,35 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: TRAB3-4
+
+      Arquivo de teste:    Bar
+
+
+!!!    0  Linha:     1  // Script:    TesteLista.script 
+!!!    0  Linha:     2  // Autor:     Arndt von Staa, Tassio Miranda 
+!!!    0  Linha:     3  // Data:      23/10/2015 
+!!!    0  Linha:     4  // 
+    6  ==Criar BAR Branco
+    9  ==Criar BAR Preto
+   12  ==Obter Cor do BAR Branco
+   15  ==Obter Cor do BAR Preto
+   18  ==Aumentar o BAR Branco em 2 peÃ§as
+   22  ==Obter Tamaho do BAR Branco com 2 pecas
+   25  ==Remover 2 peÃ§as do BAR Branco
+   29  ==Obter Tamaho do BAR Branco com 0 pecas
+   32  ==Destruir BAR Branco
+   35  ==Destruir BAR Preto
+
+!!! Número de linhas lidas:          36
+!!! Número de casos de teste:        10
+!!! Número comandos corretos:        12
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

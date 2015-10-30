@@ -24,7 +24,6 @@
 #include <stdio.h> 
 #include <malloc.h>
 #include <string.h>
-#include "GENERICO.H"
 
 #define DADO_OWN
 #include "DADOPONTOS.h"
@@ -80,8 +79,6 @@ DADPnt_tpCondRet DADPnt_CriarDado(tppDadoPontos * DadoPontoCriado)
 
 DADPnt_tpCondRet DADPnt_DobrarDado(tppDadoPontos DadoDobrar, char CorNovoDono)
 {
-	if(DadoDobrar->valor == 64)
-		return DADPnt_CondRetOK;
 	if(CorNovoDono == DadoDobrar->CorDoJogador)
 		return DADPnt_CondRetErro;
 	DadoDobrar->valor = DadoDobrar->valor * 2;

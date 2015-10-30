@@ -1,0 +1,45 @@
+
+!!! Inicio dos testes
+!!!      Construto sob teste: LISTA-3
+!!!      Script de teste:     testelista.script
+
+!!!    0  Linha:     1  // Script:    TesteLista.script 
+!!!    0  Linha:     2  // Autor:     Arndt von Staa, Felipe Vieira 
+!!!    0  Linha:     3  // Data:      30/ago/2015 
+!!!    0  Linha:     4  // 
+    6  == Inicializar valores
+   31  == Criar a lista 0
+   34  == Verificar ObterValor relativo a lista vazia
+   37  == Inserir elemento em lista vazia
+   41  == Inserir elemento após primeiro
+   45  == Inserir elemento antes do último
+   49  == Excluir elemento do meio
+   53  == Excluir elemento do início
+   57  == Excluir elemento final, único
+   61  == Ver se a lista ficou vazia
+   64  == Destruir a lista
+   67  == Criar uma lista com dois elementos
+   72  == Esvaziar a lista e ver se ficou vazia
+   76  == Destruir a lista
+   79  == Criar uma lista com quatro elementos
+   86  == Obter Tamanho da Lista Nao Vazia
+   89  == Verificar a lista de trás para diante
+   99  == Verificar a lista de frente para trás
+  109  == Verificar a lista andando demais de trás para diante
+  113  == Verificar a lista andando demais de frente para trás
+  117  == Destruir a lista
+  120  == Criar lista com 3 elementos
+  126  == Ir Inicio da lista e obter string 0
+  130  == Ir Final da lista e obter a strig 2
+  134  == Destruir a lista
+!!!    0  Linha:   137  // fim 
+
+!!! Número de linhas lidas:         137
+!!! Número de casos de teste:        25
+!!! Número comandos corretos:        77
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

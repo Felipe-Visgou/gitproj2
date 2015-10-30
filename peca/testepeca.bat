@@ -1,1 +1,1 @@
-TRAB2-2 /stestepecascript > logtestepeca.txt
+TRAB3-2 /stestepecascript > logtestepeca.txt

@@ -1,1 +1,1 @@
-TRAB2-1 /stestetabuleiroscript > logsaidatabuleiro.txt
+TRAB3-7 /stestetabuleiroscript > logsaidatabuleiro.txt

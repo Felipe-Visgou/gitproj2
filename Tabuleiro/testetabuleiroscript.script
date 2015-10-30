@@ -6,6 +6,9 @@
 == Mover Peca da casa 1 para casa 2
 =moverpeca 0 1 0
 
+== Obter Casa do tabuleiro
+=obtercasatab 0 0
+
 == Mover Peca da casa 10 (vazia) para qualquer casa (errado)
 =moverpeca 10 23 1
 

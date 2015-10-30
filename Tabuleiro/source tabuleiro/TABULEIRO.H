@@ -119,9 +119,21 @@ typedef struct TAB_tagTabuleiro * TAB_tppTabuleiro;
 
  TAB_tpCondRet TAB_MoverPeca( TAB_tppTabuleiro pTab, int casaOrigem, int casaDestino ) ;
 
-/***********************************************************************/
+ /***************************************************************************
+*
+*  $FC Função: TAB Obter Casas
+*
+*  $ED Descrição da função
+*		Retorna para o ponteiro casa o endereço da casa do tabuleiro, apontado
+*	pelo tabuleiro dado como parametro.
+*
+*  $FV Valor retornado
+*     TAB_CondRetOK		   - Obteve  sem problemas
+*	  TAB_CondRetErro	   - Nao moveu a peça
+*
+*  ****/
 
-
+TAB_tpCondRet TAB_ObterCasas(TAB_tppTabuleiro pTab, LIS_tppLista *casas) ;
 
 #undef TABULEIRO_EXT
 
